@@ -6,10 +6,763 @@
     <title>Shiprocket Navbar + Hero + Carousel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+      
 
 
-        <style>
+
+    <style>
+      /* --- 2. CUSTOM CURSOR STYLES --- */
+ 
+
+  
+      .cursor {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border: 1px solid transparent;
+        background-color: transparent;
+        border-radius: 50%;
+        left: 0;
+        top: 0;
+        pointer-events: none; 
+        transform: translate(-50%, -50%) scale(0.5);
+        transition: 0.2s ease-out; 
+        z-index: 9999;
+      }
+
+    
+      .cursor2 {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background-color: rgb(132, 59, 177); /* Tailwind purple-700 के करीब */
+        border-radius: 50%;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: 0.15s opacity ease-out;
+        z-index: 10000; 
+      }
+
+   
+      .cursor.hover-active {
+        transform: translate(-50%, -50%) scale(1.5);
+        background-color: rgba(99, 80, 131, 0.3); 
+        border: 1px solid tr;
+        opacity: 1;
+      }
+
+      .cursor2.hover-active {
+        opacity: 0; 
+      }  
+
+
+       /* From Uiverse.io by shah1345 */ 
+.button2 {
+  display: inline-block;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #fbfafa;
+  padding: 0.7em 1.7em;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #9e22d8;
+  border: 1px solid #e8e8e8;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.button2:active {
+  color: #cd0e0e;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.button2:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #0a0005;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:hover {
+  color: #ffffff;
+  border: 1px solid #010606;
+}
+
+.button2:hover:before {
+  top: -35%;
+  background-color: #000000;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button2:hover:after {
+  top: -45%;
+  background-color: #030004;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+
+
+
+    </style>
+        
+
+
+
+
+
+  </head>
+  
+
+  <body class="bg-gray-50">
+
+    <div class="cursor"></div>
+    <div class="cursor2"></div> 
+
+<!-- 🌟 Preloader -->
+<div id="preloader" class="fixed inset-0 flex items-center justify-center bg-white z-[9999]">
+  <img src="./Heading_20251109_233146_0000.gif" alt="Loading..." class="w-full h-full animate-pulse" />
+</div>
+
+<!-- Hide all page content until preloader finishes -->
+<div id="page-content" class="hidden">
+
+  <script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    const pageContent = document.getElementById("page-content");
+    
+    // Show page content
+    pageContent.classList.remove("hidden");
+    
+    // Hide preloader with fade out
+    preloader.classList.add("opacity-0", "transition-opacity", "duration-1000");
+    
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 1000);
+  });
+</script>
+<!-- <script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    preloader.classList.add("opacity-0", "transition-opacity", "duration-700");
+    setTimeout(() => preloader.style.display = "none", 1000);
+  });
+</script> -->
+
+  
+
+<!-- ✅ Top Header Section (Reduced Height & Perfectly Balanced) -->
+<section class=" md:block bg-gradient-to-r from-purple-300 via-indigo-400 to-orange-200 text-black py-2 ">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center text-center md:text-left px-4 space-y-1 md:space-y-0 md:space-x-3 pb-3">
+
+    <!-- Speaker Icon + Offer Text -->
+    <div class="flex items-center justify-center space-x-2">
+      <img 
+        src="https://sr-website.shiprocket.in/wp-content/uploads/2023/11/speaker.png" 
+        alt="Speaker Icon" 
+        class="w-8 h-8"
+      />
+      <p class="text-xs md:text-sm font-medium leading-tight">
+        Recharge Now for <strong>₹1000</strong> &amp; Get <strong>₹1600*</strong> In Your Wallet. 
+        Use Code: <strong>FLAT600</strong> | Limited Period Offer On First Recharge
+      </p>
+    </div>
+
+    <!-- CTA Column -->
+    <div class="flex items-center justify-center space-x-2">
+      <p class="text-[10px] md:text-xs text-white/90"><span> <a href="https://linksiy.com/p/terms-&-conditions">*T&amp;C Apply.</a></span></p>
+      <a 
+        href="https://app.shiprocket.in/newlogin?rel=TopStrip" 
+        target="_blank" 
+        rel="noopener"
+        class="bg-white text-purple-700 font-semibold px-3 py-1 rounded-md hover:bg-gray-100 transition my-0.5"
+      >
+        Signup Now
+      </a>
+    </div>
+
+  </div>
+</section>
+
+  
+<!-- Navbar -->
+<div class="bg-gradient-to-r from-blue-100 via-pink-100 to-yellow-100 animate-gradientBlur -mt-3">
+<nav id="mainNav"
+  class="sticky top-0 z-50
+         bg-white/30 backdrop-blur-2xl border-b border-white/20
+         transition-all duration-300">
+
+    <div class="max-w-8xl mx-auto flex items-center justify-between px-6 py-3">
+                        
+          <a href="http://127.0.0.1:5502/index.html">  <img src="https://sr-website.shiprocket.in/wp-content/uploads/2023/01/shiprocket_logo.svg"
+                    class="h-8 pr-4" alt="Logo" /></a>
+
+            <ul class="hidden md:flex items-center space-x-8 text-gray-800 font-medium">
+                <li class="relative group menu-item" data-menu="home-menu">
+                    <span class="flex items-center cursor-pointer hover:text-purple-600">Home <span class="ml-1 text-sm">&#9662;</span></span>
+                    <div id="home-menu" class="mega-menu absolute left-0 bg-white shadow-xl rounded-xl mt-4 p-6 w-[700px] z-50">
+                        <h3 class="text-sm font-semibold text-gray-500 mb-4 uppercase">MAIN PLATFORM FEATURES</h3>
+                        <div class="grid grid-cols-2 gap-y-3 gap-x-8">
+                            
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">💸</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Payment Gateways</p>
+                                    <p class="text-sm text-gray-500">Secure online transactions.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">📍</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Global Coverage</p>
+                                    <p class="text-sm text-gray-500">Reach customers worldwide.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">🔌</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">API Integration</p>
+                                    <p class="text-sm text-gray-500">Seamless system connectivity.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">📦</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Advanced Analytics</p>
+                                    <p class="text-sm text-gray-500">Track performance metrics.</p>
+                                </div>
+                            </a>
+
+                        </div>
+                        <a href="http://127.0.0.1:5502/index.html"   class="text-purple-600 font-medium cursor-pointer hover:underline mt-6 block">View All Home Services</a>
+                    </div>
+                </li>
+                
+                <li class="relative group menu-item" data-menu="listings-menu">
+                    <span class="flex items-center cursor-pointer hover:text-purple-600"> Listings <span class="ml-1 text-sm">&#9662;</span></span>
+                    <div id="listings-menu" class="mega-menu absolute left-0 bg-white shadow-xl rounded-xl mt-4 p-5 w-[500px] z-50">
+                        <h3 class="text-sm font-semibold text-gray-500 mb-4 uppercase">E-COMMERCE LISTINGS TOOLS</h3>
+                        <div class="grid grid-cols-1 gap-y-3">
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">⚙</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Product Management</p>
+                                    <p class="text-sm text-gray-500">Add, edit, and organize inventory.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">🛒</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Marketplace Sync</p>
+                                    <p class="text-sm text-gray-500">Connect to Amazon, Flipkart, etc.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">📊</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">SEO Optimization</p>
+                                    <p class="text-sm text-gray-500">Improve product visibility.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <a  href="https://linksiy.com/listings" class="text-purple-600 font-medium hover:underline cursor-pointer mt-4 block">Explore Listing Features</a>
+                    </div>
+                </li>
+                
+                <li class="relative group menu-item" data-menu="blog-menu">
+                    <span class="flex items-center cursor-pointer hover:text-purple-600"> Blog <span class="ml-1 text-sm">&#9662;</span></span>
+                    <div id="blog-menu" class="mega-menu absolute left-0 bg-white shadow-xl rounded-xl mt-4 p-5 w-[500px] z-50">
+                        <h3 class="text-sm font-semibold text-gray-500 mb-4 uppercase">LATEST ARTICLES & NEWS</h3>
+                        <div class="grid grid-cols-1 gap-y-3">
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">📘</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">eCommerce Guides</p>
+                                    <p class="text-sm text-gray-500">In-depth tutorials for growth.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">🎥</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Video Tutorials</p>
+                                    <p class="text-sm text-gray-500">Watch and learn quickly.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="desktop-menu-item">
+                                <span class="desktop-menu-item-icon">❓</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Case Studies</p>
+                                    <p class="text-sm text-gray-500">Real-life success stories.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <a href="https://linksiy.com/blog" class="text-purple-600 font-medium hover:underline cursor-pointer mt-4 block">View All Blogs</a>
+                    </div>
+                </li>
+                <li><a href="https://linksiy.com/pricing" class="hover:text-purple-600">Pricing</a></li>
+                <!-- 📄 Pages Dropdown Menu -->
+<li class="relative group menu-item" data-menu="pages-menu">
+  <span class="flex items-center cursor-pointer hover:text-purple-600">
+    Pages <span class="ml-1 text-sm">&#9662;</span>
+  </span>
+
+  <!-- Dropdown -->
+  <div id="pages-menu"
+       class="mega-menu absolute left-0 bg-white shadow-xl rounded-xl mt-4 p-5 w-[280px] z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+    <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase">USEFUL PAGES</h3>
+
+    <div class="grid grid-cols-1 gap-y-3">
+      <a href="https://linksiy.com/p/about-us" class="flex items-start gap-3 p-2 rounded-lg hover:bg-purple-50 transition">
+        <span class="text-lg">ℹ️</span>
+        <div> 
+          <p class="font-semibold text-gray-800">About Us</p>
+          <p class="text-sm text-gray-500">Learn more about our mission and story.</p>
+        </div>
+      </a>
+
+      <a href="https://linksiy.com/p/terms-&-conditions" class="flex items-start gap-3 p-2 rounded-lg hover:bg-purple-50 transition">
+        <span class="text-lg">📜</span>
+        <div>
+          <p class="font-semibold text-gray-800">Terms & Conditions</p>
+          <p class="text-sm text-gray-500">Understand our policies and guidelines.</p>
+        </div>
+      </a>
+
+      <a href="https://linksiy.com/p/privacy-policy" class="flex items-start gap-3 p-2 rounded-lg hover:bg-purple-50 transition">
+        <span class="text-lg">🔒</span>
+        <div>
+          <p class="font-semibold text-gray-800">Privacy Policy</p>
+          <p class="text-sm text-gray-500">How we protect your personal data.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</li>
+
+                <li><a href="https://linksiy.com/faq" class="hover:text-purple-600">FAQ</a></li>
+                <li><a href="https://linksiy.com/contact" class="hover:text-purple-600">Contact</a></li>
+                <li><a href="https://linksiy.com/p/about-us" class="hover:text-purple-600">About Us</a></li>
+                <li><a href="https://linksiy.com/p/terms-&-conditions" class="hover:text-purple-600">Terms & Condition</a></li>
+                <li><a href="https://linksiy.com/p/refund-policy" class="hover:text-purple-600">Refund Policy</a></li>
+                <li><a href="https://linksiy.com/p/privacy-policy" class="hover:text-purple-600">Privacy Policy</a></li>
+            </ul>
+
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="flex items-center space-x-1 cursor-pointer hover:text-purple-600">
+                    <span class="text-xl">🌐</span>
+                    <span> <a href="http://127.0.0.1:5502/index.html">English</a></span>
+                </div>
+                <div>
+    <button class="button-5"> 
+        <a href="https://linksiy.com/login">Login</a>
+    </button> 
+</div>
+            </div>
+
+            <div class="flex items-center space-x-3 md:hidden"> 
+                <!-- <button class="px-3 py-1 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700">Login</button> -->
+                <div> <button class="button-4"><a href="https://linksiy.com/login">Login</a></button> </div>
+
+                <button id="menu-btn" class="text-gray-800 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-2xl mx-4 mt-2 mb-4 p-4">
+            <ul class="flex flex-col space-y-2 text-gray-800 font-medium">
+                                
+                <li class="mobile-menu-item" data-menu="home-menu-mobile">
+                    <div class="flex items-center justify-between cursor-pointer py-1 hover:text-purple-600">
+                        <span>Home 🏠</span>
+                        <span class="text-sm">&#9662;</span>
+                    </div>
+                    <div id="home-menu-mobile" class="mobile-mega-menu">
+                        
+                        <h3 class="font-semibold mb-1">MAIN PLATFORM FEATURES</h3>
+                        
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">💸</span>
+                            <span>Payment Gateways</span>
+                        </a>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">📍</span>
+                            <span>Global Coverage</span>
+                        </a>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">🔌</span>
+                            <span>API Integration</span>
+                        </a>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">📦</span>
+                            <span>Advanced Analytics</span>
+                        </a>
+
+                        <a href="http://127.0.0.1:5502/index.html" class="text-purple-600 font-medium cursor-pointer hover:underline pt-2 block text-center text-sm">View All Home Services</a>
+                    </div>
+                </li>
+
+                <li class="mobile-menu-item" data-menu="listings-menu-mobile">
+                  <a href="" 
+   class="flex items-center justify-between cursor-pointer py-1 hover:text-purple-600">
+    
+    <span>Listings 📦</span>
+    <span class="text-sm">&#9662;</span>
+</a>
+                    <div id="listings-menu-mobile" class="mobile-mega-menu">
+                        <h3 class="font-semibold mb-1">E-COMMERCE LISTINGS TOOLS</h3>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">⚙</span>
+                            <span>Product Management</span>
+                        </a>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">🛒</span>
+                            <span>Marketplace Sync</span>
+                        </a>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">📊</span>
+                            <span>SEO Optimization</span>
+                        </a>
+                        <a href="https://linksiy.com/listings" class="text-purple-600 font-medium hover:underline cursor-pointer pt-2 block text-center text-sm">Explore Listing Features</a>
+                    </div>
+                </li>
+                
+                <li class="mobile-menu-item" data-menu="blog-menu-mobile">
+                    <div class="flex items-center justify-between cursor-pointer py-1 hover:text-purple-600">
+                        <span>Blog 📰</span>
+                        <span class="text-sm">&#9662;</span>
+                    </div>
+                    <div id="blog-menu-mobile" class="mobile-mega-menu">
+                        <h3 class="font-semibold mb-1">LATEST ARTICLES & NEWS</h3>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">📘</span>
+                            <span>eCommerce Guides</span>
+                        </a>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">🎥</span>
+                            <span>Video Tutorials</span>
+                        </a>
+                        <a href="#" class="mobile-menu-item-link">
+                            <span class="text-purple-600">❓</span>
+                            <span>Case Studies</span>
+                        </a>
+                        <a href="https://linksiy.com/blog" class="text-purple-600 font-medium hover:underline cursor-pointer pt-2 block text-center text-sm">View All Blogs</a>
+                    </div>
+                </li>
+                 <li><a href="https://linksiy.com/pricing" class="block py-1 hover:text-purple-600">Pricing</a></li>
+
+                  <li class="mobile-menu-item" data-menu="pages-menu-mobile">
+  <div class="flex items-center justify-between cursor-pointer py-1 hover:text-purple-600">
+    <span>Pages 📄</span>
+    <span class="text-sm">&#9662;</span>
+  </div>
+
+  <div id="pages-menu-mobile" class="mobile-mega-menu">
+    <h3 class="font-semibold mb-1">USEFUL PAGES</h3>
+
+    <a href="https://linksiy.com/p/about-us" class="mobile-menu-item-link">
+      <span class="text-purple-600">ℹ️</span>
+      <span>About Us</span>
+    </a>
+
+    <a href="https://linksiy.com/p/terms-&-conditions" class="mobile-menu-item-link">
+      <span class="text-purple-600">📜</span>
+      <span>Terms & Conditions</span>
+    </a>
+
+    <a href="https://linksiy.com/p/privacy-policy" class="mobile-menu-item-link">
+      <span class="text-purple-600">🔒</span>
+      <span>Privacy Policy</span>
+    </a>
+
+    </a>
+  </div>
+</li>
+
+
+                <li><a href="https://linksiy.com/faq" class="block py-1 hover:text-purple-600">FAQ</a></li>
+                <li><a href="https://linksiy.com/contact" class="block py-1 hover:text-purple-600">Contact</a></li>
+                <li><a href="https://linksiy.com/p/about-us" class="block py-1 hover:text-purple-600">About Us</a></li>
+                <li><a href="https://linksiy.com/p/terms-&-conditions" class="block py-1 hover:text-purple-600">Terms & Condition</a></li>
+                <li><a href="https://linksiy.com/p/refund-policy" class="block py-1 hover:text-purple-600">Refund Policy</a></li>
+                <li><a href="https://linksiy.com/p/privacy-policy" class="block py-1 hover:text-purple-600">Privacy Policy</a></li>
+                
+                <li class="pt-4 border-t border-gray-100"> 
+                    <div class="flex items-center space-x-2 cursor-pointer hover:text-purple-600">
+                        <span class="text-xl">🌐</span> 
+                        <span>
+                          <a href="http://127.0.0.1:5502/index.html">English</a></span>
+                    </div>
+                </li>
+
+                <li class="pt-2">
+                    <!-- <button class="w-full mt-1 px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Login</button> -->
+                 <div>
+    <button class="button-3"> 
+        <a href="https://linksiy.com/login">Login</a>
+    </button> 
+</div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <style>
+
+  
+          /* From Uiverse.io by shah1345 */ 
+.button-3 {
+  display: inline-block;
+  width: 100%;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #fbfafa;
+  padding: 0.7em 1.7em;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #9e22d8;
+  border: 1px solid #e8e8e8;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.button-3:active {
+  color: #cd0e0e;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.button-3:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button-3:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #0a0005;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button-3:hover {
+  color: #ffffff;
+  border: 1px solid #010606;
+}
+
+.button-3:hover:before {
+  top: -35%;
+  background-color: #000000;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button-3:hover:after {
+  top: -45%;
+  background-color: #030004;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+ 
+
+         /* From Uiverse.io by shah1345 */ 
+.button-4 {
+  display: inline-block;
+
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #fbfafa;
+  padding: 0.7em 1.7em;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 0.5em;
+  background: #9e22d8;
+  border: 1px solid #e8e8e8;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.button-4:active {
+  color: #cd0e0e;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.button-4:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button-4:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #0a0005;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button-4:hover {
+  color: #ffffff;
+  border: 1px solid #010606;
+}
+
+.button-4:hover:before {
+  top: -35%;
+  background-color: #000000;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button-4:hover:after {
+  top: -45%;
+  background-color: #030004;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+
+
+         /* From Uiverse.io by shah1345 */ 
+.button-5 {
+  display: inline-block;
+
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #fbfafa;
+  padding: 0.7em 1.7em;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 0.5em;
+  background: #9e22d8;
+  border: 1px solid #e8e8e8;
+  /* box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff; */
+}
+
+.button-5:active {
+  color: #cd0e0e;
+  /* box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff; */
+}
+
+.button-5:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button-5:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #0a0005;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button-5:hover {
+  color: #ffffff;
+  border: 1px solid #010606;
+}
+
+.button-5:hover:before {
+  top: -35%;
+  background-color: #000000;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button-5:hover:after {
+  top: -45%;
+  background-color: #030004;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+
+
+
+
+
+
+
+
+
         /* --- 1. NAVBAR STYLES --- */
         .mega-menu { display: none; }
         .show-menu { display: block; }
@@ -61,190 +814,389 @@
             width: 100%;
             transition: width 4000ms linear;
         }
-        /* 📱 Always Rounded Navbar on Small Screens */
-@media (max-width: 768px) {
-  #mainNav {
-    border-radius: 40px;
-    margin: 8px auto;
-    width: 94%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-}
+        /* DESKTOP MEGA MENU ITEM STYLES (NEW) */
+        .desktop-menu-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 8px; 
+            border-radius: 8px;
+            transition: background-color 0.15s;
+        }
+        /* 💡 DESKTOP: Hover effect for all desktop mega menu items */
+        .desktop-menu-item:hover {
+            background-color: #f5f3ff; /* bg-purple-50 */
+        }
+        .desktop-menu-item-icon {
+            font-size: 1.4rem; 
+            margin-right: 0.75rem;
+            color: #7c3aed; /* purple-600 */
+        }
+        
+        /* 📱 MOBILE NAVBAR STYLES (Improved) */
+        @media (max-width: 768px) {
+            #mainNav {
+                border-radius: 40px;
+                margin: 8px auto;
+                width: 94%;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                background-color: rgba(255, 255, 255, 0.35);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            /* Mobile Mega Menu Styles - IMPROVED */
+            .mobile-mega-menu {
+                background-color: rgba(243, 244, 246, 0.8); /* bg-gray-100/80 */
+                padding: 10px 15px;
+                margin-top: 5px;
+                border-radius: 8px;
+                font-size: 1rem;
+                display: none;
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+                border: 1px solid rgba(229, 231, 235, 0.5); /* border-gray-200/50 */
+            }
+            .mobile-mega-menu.show-menu {
+                display: block;
+            }
+            .mobile-mega-menu h3 {
+                font-size: 0.75rem; 
+                margin-bottom: 0.5rem;
+                color: rgb(107 114 128); 
+                font-weight: 600; 
+                text-transform: uppercase;
+            }
+            .mobile-menu-item-link {
+                display: flex;
+                align-items: center;
+                padding: 8px 10px; 
+                font-weight: 500;
+                color: rgb(55 65 81); 
+                line-height: 1.25;
+                transition: background-color 0.1s;
+            }
+            /* 💡 NEW/UPDATED: Hover (Touch) and Active (Press) effect for all mobile mega menu items */
+            .mobile-menu-item-link:hover, 
+            .mobile-menu-item-link:active { /* :active is for press effect */
+                background-color: rgba(229, 231, 235, 0.9); /* Slightly darker gray on press/touch */
+                border-radius: 8px; /* Apply border-radius here for consistency */
+                color: #7c3aed; /* Change text color on press/touch */
+            }
 
-
-
+            .mobile-menu-item-link span:first-child {
+                margin-right: 1rem;
+                font-size: 1.25rem; 
+                width: 1.5rem; 
+                text-align: center;
+            }
+            .mobile-mega-menu-group {
+                padding-top: 5px;
+                margin-top: 10px;
+                border-top: 1px solid rgb(229 231 235);
+            }
+        }
     </style>
-  </head>
-  
-
-  <body class="bg-gray-50">
 
 
-  
+
+    
 
 
-<!-- ✅ Top Header Section (Reduced Height & Perfectly Balanced) -->
-<section class="hidden md:block bg-gradient-to-r from-purple-300 via-indigo-400 to-orange-200 text-black py-2">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center text-center md:text-left px-4 space-y-1 md:space-y-0 md:space-x-3">
+    <!-- her o section -->  
 
-    <!-- Speaker Icon + Offer Text -->
-    <div class="flex items-center justify-center space-x-2">
-      <img 
-        src="https://sr-website.shiprocket.in/wp-content/uploads/2023/11/speaker.png" 
-        alt="Speaker Icon" 
-        class="w-5 h-5"
-      />
-      <p class="text-xs md:text-sm font-medium leading-tight">
-        Recharge Now for <strong>₹1000</strong> &amp; Get <strong>₹1600*</strong> In Your Wallet. 
-        Use Code: <strong>FLAT600</strong> | Limited Period Offer On First Recharge
-      </p>
-    </div>
+<section
+  id="home"
+  class="relative overflow-hidden w-full h-[90vh] md:h-[86vh] flex items-center justify-center text-gray-900"
+>
+  <!-- Gradient Background -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-blue-100 via-pink-100 to-yellow-100 animate-gradientBlur opacity-70"
+  ></div>
 
-    <!-- CTA Column -->
-    <div class="flex items-center justify-center space-x-2">
-      <p class="text-[10px] md:text-xs text-white/90"><span>*T&amp;C Apply.</span></p>
-      <a 
-        href="https://app.shiprocket.in/newlogin?rel=TopStrip" 
-        target="_blank" 
-        rel="noopener"
-        class="bg-white text-purple-700 font-semibold px-3 py-1 rounded-md hover:bg-gray-100 transition my-0.5"
+  <!-- Slides Wrapper -->
+  <div
+    id="slides"
+    class="relative z-10 flex w-full h-full transition-transform duration-700 ease-in-out"
+  >
+    <!-- 👇 Each Slide -->
+    <!-- <div
+      class="hero-slide min-w-full flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-20 lg:px-24 gap-6 md:gap-12"
+    > -->
+      <!-- 🖼️ Left Image -->
+      <!-- <div class="w-full md:w-1/2 flex justify-center md:justify-start">
+        <img
+          src="https://sr-website.shiprocket.in/wp-content/uploads/2025/02/image-6.webp"
+          alt="Hero"
+          class="w-[85%] md:w-[90%] max-w-md md:max-w-lg object-contain md:object-cover"
+        />
+      </div> -->
+
+      <!-- 📝 Right Text -->
+      <!-- <div
+        class="w-full md:w-1/2 text-center md:text-left flex flex-col justify-center space-y-4 md:space-y-6"
       >
-        Signup Now
-      </a>
-    </div>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-semibold leading-snug md:leading-tight text-gray-800">
+          Financial Services,
+          <br class="hidden md:block" /> Supporting Your
+          <br class="hidden md:block" /> Ambitions
+        </h1>
+        <p class="text-gray-600 text-base md:text-lg max-w-md mx-auto md:mx-0">
+          Build your business’ financial strength with Capital.
+        </p>
+        <div>
+          <button
+            class="button2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg shadow-md transition-all duration-300"
+          >
+            Get Started
+          </button>
+        </div>
+      </div> -->
+<!--       
+    </div> -->
+  </div>
 
+  <!-- 🔹 Navigation Buttons -->
+  <div
+    class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20"
+  >
+    <button
+      id="prev"
+      class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-white/70 hover:bg-white text-purple-700 shadow-md transition"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2.5"
+        stroke="currentColor"
+        class="w-5 h-5"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <div id="lines" class="flex gap-2"></div>
+
+    <button
+      id="next"
+      class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-white/70 hover:bg-white text-purple-700 shadow-md transition"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2.5"
+        stroke="currentColor"
+        class="w-5 h-5"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
   </div>
 </section>
 
 
-<nav id="mainNav"
-  class="w-full sticky top-0 z-50 
-         bg-white/30 backdrop-blur-2xl border-b border-white/20 
-         transition-all duration-300">
 
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-            
-            <img src="https://sr-website.shiprocket.in/wp-content/uploads/2023/01/shiprocket_logo.svg"
-                 class="h-8 pr-4" alt="Logo" />
 
-            <ul class="hidden md:flex items-center space-x-8 text-gray-800 font-medium">
-                <li class="relative group menu-item" data-menu="home-menu">
-                    <span class="flex items-center cursor-pointer">Home <span class="ml-1 text-sm">&#9662;</span></span>
-                    <div id="home-menu" class="mega-menu absolute left-0 bg-white shadow-xl rounded-xl mt-4 p-6 w-[700px] z-50">
-                        <h3 class="text-sm font-semibold text-gray-500 mb-4">HOME FEATURES</h3>
-                        <div class="grid grid-cols-2 gap-y-6 gap-x-10">
-                            <div class="flex items-center space-x-3"><span>💸</span><span>Home Option 1</span></div>
-                            <div class="flex items-center space-x-3"><span>📍</span><span>Home Option 2</span></div>
-                            <div class="flex items-center space-x-3"><span>🔌</span><span>Home Option 3</span></div>
-                            <div class="flex items-center space-x-3"><span>📦</span><span>Home Option 4</span></div>
-                            <a class="text-purple-600 font-medium cursor-pointer hover:underline">View All</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="relative group menu-item" data-menu="listings-menu">
-                    <span class="flex items-center cursor-pointer">Listings <span class="ml-1 text-sm">&#9662;</span></span>
-                    <div id="listings-menu" class="mega-menu absolute left-0 bg-white shadow-xl rounded-xl mt-4 p-5 w-[500px] z-50">
-                        <h3 class="text-sm font-semibold text-gray-500 mb-4">LISTINGS MENU</h3>
-                        <div class="grid grid-cols-2 gap-y-5 gap-x-8">
-                            <div class="flex items-center space-x-3"><span>⚙</span><span>Listings Option 1</span></div>
-                            <div class="flex items-center space-x-3"><span>📦</span><span>Listings Option 2</span></div>
-                            <div class="flex items-center space-x-3"><span>📊</span><span>Listings Option 3</span></div>
-                            <a class="text-purple-600 font-medium hover:underline cursor-pointer">View Listings</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="relative group menu-item" data-menu="blog-menu">
-                    <span class="flex items-center cursor-pointer">Blog <span class="ml-1 text-sm">&#9662;</span></span>
-                    <div id="blog-menu" class="mega-menu absolute left-0 bg-white shadow-xl rounded-xl mt-4 p-5 w-[500px] z-50">
-                        <h3 class="text-sm font-semibold text-gray-500 mb-4">BLOG MENU</h3>
-                        <div class="grid grid-cols-2 gap-y-5 gap-x-8">
-                            <div class="flex items-center space-x-3"><span>📘</span><span>Blog Option 1</span></div>
-                            <div class="flex items-center space-x-3"><span>🎥</span><span>Blog Option 2</span></div>
-                            <div class="flex items-center space-x-3"><span>❓</span><span>Blog Option 3</span></div>
-                            <a class="text-purple-600 font-medium hover:underline cursor-pointer">View Blogs</a>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="#" class="hover:text-purple-600">FAQ</a></li>
-                <li><a href="#" class="hover:text-purple-600">Contact</a></li>
-                <li><a href="#" class="hover:text-purple-600">About Us</a></li>
-                <li><a href="#" class="hover:text-purple-600">Terms & Condition</a></li>
-                <li><a href="#" class="hover:text-purple-600">Refund Policy</a></li>
-                <li><a href="#" class="hover:text-purple-600">Privacy Policy</a></li>
-            </ul>
+    <script>
+        /* ------------------------------------------------ */
+        /* 1. NAVBAR SCROLL LOGIC & MEGA MENU */
+        /* ------------------------------------------------ */
+        
+        // Mega Menu Logic
+        const menuItems = document.querySelectorAll('.menu-item');
+        let openMenu = null;
 
-            <div class="hidden md:flex items-center space-x-4">
-                <div class="flex items-center space-x-1 cursor-pointer hover:text-purple-600">
-                    <span class="text-xl">🌐</span>
-                    <span>English</span>
-                </div>
-                <button class="px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Login</button>
-            </div>
+        menuItems.forEach(item => {
+            const menuId = item.getAttribute('data-menu');
+            const menu = document.getElementById(menuId);
 
-            <div class="flex items-center space-x-3 md:hidden"> 
-                <button class="px-3 py-1 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700">Login</button>
+            item.addEventListener('mouseenter', () => {
+                if (openMenu && openMenu !== menu) openMenu.classList.remove("show-menu");
+                menu.classList.add("show-menu");
+                openMenu = menu;
+            });
+            item.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    if (!item.matches(':hover') && !menu.matches(':hover')) {
+                        menu.classList.remove("show-menu");
+                        if (openMenu === menu) openMenu = null;
+                    }
+                }, 150);
+            });
+            menu.addEventListener('mouseleave', () => {
+                menu.classList.remove("show-menu");
+                if (openMenu === menu) openMenu = null;
+            });
+        });
 
-                <button id="menu-btn" class="text-gray-800 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-            </div>
+        // // Mobile Menu Toggle
+        // const btn = document.getElementById("menu-btn");
+        // const mobileMenu = document.getElementById("mobile-menu");
+        // btn.addEventListener("click", () => {
+        //     mobileMenu.classList.toggle("hidden");
+        // });
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
 
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-2xl mx-4 mt-2 mb-4 p-4">
-            <ul class="flex flex-col space-y-2 text-gray-800 font-medium">
-                <li><a href="#" class="block py-1 hover:text-purple-600">Home</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">Listings</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">Blog</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">FAQ</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">Contact</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">About Us</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">Terms & Condition</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">Refund Policy</a></li>
-                <li><a href="#" class="block py-1 hover:text-purple-600">Privacy Policy</a></li>
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  // Mobile dropdowns
+  const mobileItems = document.querySelectorAll(".mobile-menu-item");
+
+  mobileItems.forEach(item => {
+    item.addEventListener("click", () => {
+      const menuId = item.getAttribute("data-menu");
+      const menu = document.getElementById(menuId);
+      menu.classList.toggle("show-menu");
+
+      // Rotate arrow icon (optional)
+      const arrow = item.querySelector("span.text-sm");
+      if (arrow) arrow.classList.toggle("rotate-180");
+    });
+  });
+        // SCROLL LOGIC
+        const nav = document.getElementById("mainNav");
+        window.addEventListener("scroll", () => {
+            if (window.innerWidth >= 768) {  
+                // When scrolling is detected, the nav-scroll class is added, which applies margin and the glassy effect.
+                nav.classList.toggle("nav-scroll", window.scrollY > 30);
+            } else {
+                nav.classList.remove("nav-scroll");
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth < 768) {
+                nav.classList.remove("nav-scroll");
+            }
+        });
+
+        /* ------------------------------------------------ */
+        /* 2. SLIDER LOGIC */
+        /* ------------------------------------------------ */
+        
+        (() => {
+            const slideData = [
+                {title:"Financial Services,<br>Supporting Your<br>Ambitions", desc:"Build your business’ financial strength with Capital.", img:"https://sr-website.shiprocket.in/wp-content/uploads/2025/02/image-6.webp"},
+                {title:"Shiprocket,<br>Your Partner for<br>eCommerce Empowerment", desc:"From shipping to scaling, we grow your eCommerce brand end-to-end.", img:"https://sr-website.shiprocket.in/wp-content/uploads/2024/11/banner-3.webp"},
+                {title:"Redefining Domestic<br>Shipping – Seamless in<br>Every Way", desc:"Go big with growth, we'll handle nationwide shipping – anywhere, anytime.", img:"https://sr-website.shiprocket.in/wp-content/uploads/2025/05/Banner-3-scaled.webp"},
+                {title:"Cross-Border<br>Commerce – Fulfill Your<br>Global Aspirations", desc:"ShipX, CargoX, Launch — our service suite to enable your go-global goals.", img:"https://sr-website.shiprocket.in/wp-content/uploads/2024/11/banner-5.webp"},
+                {title:"AI-Powered<br>Solutions for Marketing<br>Growth", desc:"Checkout, Promise, & Engage 360 — tech enablement for immersive shopping.", img:"https://sr-website.shiprocket.in/wp-content/uploads/2024/11/banner-4.webp"}
+            ];
+
+            const slidesContainer = document.querySelector("#slides");
+            const linesContainer = document.querySelector("#lines");
+            const nextBtn = document.querySelector("#next");
+            const prevBtn = document.querySelector("#prev");
+
+            const slides = [];
+            slides.push(slideData[slideData.length-1]);
+            slides.push(...slideData);
+            slides.push(slideData[0]);
+
+            // Dynamically create slide HTML elements
+            slides.forEach(slide=>{
+                const div = document.createElement("div");
+                // *UPDATED:* Changed pb-16 to pb-6 for better vertical spacing on mobile
+       div.className = "hero-slide min-w-full flex flex-col md:flex-row items-start md:items-center justify-between h-full  px-4 md:px-20 lg:px-24";
+
                 
-                <li class="pt-4 border-t border-gray-100"> 
-                    <div class="flex items-center space-x-2 cursor-pointer hover:text-purple-600">
-                        <span class="text-xl">🌐</span> 
-                        <span>English</span>
+                div.innerHTML = `
+                    <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center mt-2 md:mt-0">
+                        <h1 class="text-3xl md:text-4xl lg:text-6xl font-medium leading-relaxed lg:leading-[1.2] tracking-tight">${slide.title}</h1>
+                        <p class="text-lg text-gray-600 mt-4">${slide.desc}</p>
+                              
+                        <div class="mt-10">
+           <button
+    type="button"
+    class="button2"
+    onclick="alert('View More clicked!')"
+  >
+    Get Started Now
+  </button>
+        </div>
+
                     </div>
-                </li>
+                    <div class="w-full md:w-1/2 flex justify-center  items-end mt-12  ">
+                        <img src="${slide.img}" class="w-[95%] max-h-[650px] object-cover md:object-bottom lg:object-bottom pb-16 " />
 
-                <li class="pt-2">
-                    <button class="w-full mt-1 px-5 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Login</button>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                    </div>
+                  
+                `; 
+                  //  <button class="mt-6 md:mt-8 bg-purple-600 hover:bg-purple-700 text-white font-medium text-lg px-8 py-3 rounded-md shadow-md transition-all duration-300 w-fit min-w-[180px]">Sign Up For Free</button>
+                  
+                slidesContainer.appendChild(div);
+                
+            });
+
+            const lines = [];
+            slideData.forEach(()=> {
+                const span = document.createElement("span");
+                span.className = "hero-line w-6 h-[3px] rounded-full";
+                linesContainer.appendChild(span);
+                lines.push(span);
+            });
+
+            let currentIndex = 1;
+            const slideDuration = 4000;
+            const transitionDuration = 700;
+            let autoSlideInterval;
+
+            function updateLines() {
+                lines.forEach(l=>l.classList.remove("active"));
+                let lineIndex = currentIndex-1;
+                if(lineIndex<0) lineIndex = lines.length-1;
+                if(lineIndex>=lines.length) lineIndex = 0;
+                lines[lineIndex].classList.add("active");
+            }
+
+           function moveSlide(idx, instant = false) {
+  slidesContainer.style.transition = instant
+    ? "none"
+    : `transform ${transitionDuration}ms ease-in-out`;
+  slidesContainer.style.transform = `translateX(-${idx * 100}%)`;
+}
 
 
-    <!-- hero section -->
-    <section id="home" class="relative overflow-hidden w-full h-screen text-gray-900">
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-100 via-pink-100 to-yellow-100 animate-gradientBlur opacity-70"></div>
+            function nextSlide() {
+                currentIndex++;
+                moveSlide(currentIndex);
+                updateLines();
+                if(currentIndex===slides.length-1){
+                    setTimeout(()=>{ currentIndex=1; moveSlide(currentIndex,true); updateLines(); }, transitionDuration);
+                }
+            }
 
-        <div id="slides" class="relative z-10 flex w-full h-full transition-transform duration-700 ease-in-out"></div>
+            function prevSlide() {
+                currentIndex--;
+                moveSlide(currentIndex);
+                updateLines();
+                if(currentIndex===0){
+                    setTimeout(()=>{ currentIndex=slides.length-2; moveSlide(currentIndex,true); updateLines(); }, transitionDuration);
+                }
+            }
 
-        <div class="absolute md:bottom-12 bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20">
-            <button id="prev" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-white/70 hover:bg-white text-purple-700 shadow-md transition">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-                </svg>
-            </button>
+            function restartAutoSlide(){
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(nextSlide, slideDuration);
+            }
 
-            <div id="lines" class="flex gap-2"></div>
+            nextBtn.addEventListener("click", ()=>{ nextSlide(); restartAutoSlide(); });
+            prevBtn.addEventListener("click", ()=>{ prevSlide(); restartAutoSlide(); });
+            lines.forEach((line,i)=>{ line.addEventListener("click", ()=>{ currentIndex=i+1; moveSlide(currentIndex); updateLines(); restartAutoSlide(); }); });
 
-            <button id="next" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-white/70 hover:bg-white text-purple-700 shadow-md transition">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                </svg>
-            </button>
-        </div>
-    </section>
+            moveSlide(currentIndex,true);
+            updateLines();
+            restartAutoSlide();
+
+        })();
+    </script>
+
+
+ 
 
     
 
@@ -337,46 +1289,69 @@
 
 
 
-<!-- video testimonial -->
-<section id="testimonial-section" class="w-full py-20 bg-purple-100">
 
-  <div class="main-wrapper flex flex-col md:flex-row items-center justify-between px-6 md:px-20">
 
-    <!-- Left Text -->
-    <div class="md:w-1/2 text-left flex flex-col md:ml-10">
-      <h1 class="text-3xl md:text-6xl font-bold text-gray-800 leading-tight">What Our Client Say</h1>
-      <p class="text-gray-600 text-lg max-w-md mt-6 md:mt-10 leading-loose">
-        It is a long established fact that a reader will be choose <br> by the readable content of a page when looking at.
+<!-- 🎬 Video Testimonial Section -->
+<section
+  id="testimonial-section"
+  class="relative z-10 w-full py-6 sm:py-10 md:py-20 bg-gradient-to-br from-purple-400 via-white to-purple-400 animate-gradientBlur"
+>
+
+  <div
+    class="main-wrapper flex flex-col md:flex-row items-center justify-between px-6 md:px-20"
+  >
+    <!-- 🟣 Left Text -->
+    <div class="md:w-1/2 md:ml-12 text-left flex flex-col animate-left">
+      <h1 class="text-3xl md:text-6xl font-bold text-gray-800 leading-tight">
+        What Our Client Say
+      </h1>
+
+      <p class="text-gray-600 text-lg max-w-md mt-4 md:mt-10 leading-relaxed">
+        It is a long established fact that a reader will be choose by the
+        readable content of a page when looking at.
       </p>
-      <button
-        class="mt-6 md:mt-10 bg-[#2563eb] text-white text-2xl px-8 py-4 rounded-md font-semibold hover:bg-[#1e4fd1] transition-all duration-300 w-max">
-        More Templates
-      </button>
+
+      <div class="mt-4 md:mt-8">
+        <button
+          type="button"
+          class="button2"
+          onclick="alert('View More clicked!')"
+        >
+          More Templates
+        </button>
+      </div>
     </div>
 
-    <!-- Right Slider -->
-    <div class="md:w-1/2 mt-10 md:mt-0">
-      <div class="swiper trending-slider relative pb-8">
+    <!-- 🟣 Right Slider -->
+    <div class="md:w-1/2 mt-10 md:mt-0 md:mr-8 animate-right">
+      <div class="swiper trending-slider relative">
         <div class="swiper-wrapper">
-
-          <div class="swiper-slide w-[16rem] h-[16rem] md:w-[20rem] md:h-[25rem]">
+          <div
+            class="swiper-slide w-[11rem] h-[18rem] md:w-[20rem] md:h-[25rem]"
+          >
             <video src="v1.mp4"></video>
           </div>
 
-          <div class="swiper-slide w-[16rem] h-[16rem] md:w-[20rem] md:h-[25rem]">
+          <div
+            class="swiper-slide w-[11rem] h-[18rem] md:w-[20rem] md:h-[25rem]"
+          >
             <video src="v2.mp4"></video>
           </div>
 
-          <div class="swiper-slide w-[16rem] h-[16rem] md:w-[20rem] md:h-[25rem]">
+          <div
+            class="swiper-slide w-[11rem] h-[18rem] md:w-[20rem] md:h-[25rem]"
+          >
             <video src="v3.mp4"></video>
           </div>
-
         </div>
 
-        <!-- VCard Label -->
-        <div id="vcard-label" class="text-center text-2xl font-bold text-gray-800 mt-4 mb-2">vcard1</div>
-
-        <!-- Pagination -->
+        <!-- Labels & Pagination -->
+        <div
+          id="vcard-label"
+          class="text-center text-2xl font-bold text-gray-800 mt-6 mb-2"
+        >
+          vcard1
+        </div>
         <div class="flex items-center justify-center">
           <div class="swiper-pagination !w-[15rem] relative bottom-0"></div>
         </div>
@@ -384,10 +1359,10 @@
     </div>
   </div>
 
+  <!-- ✅ Styles -->
   <style>
-    /* Section-specific styles */
     #testimonial-section {
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Montserrat", sans-serif;
     }
 
     .swiper-pagination-bullet {
@@ -407,7 +1382,28 @@
       cursor: pointer;
     }
 
-    /* Fullscreen overlay */
+    /* ✨ Scroll Animation */
+    .animate-left,
+    .animate-right {
+      opacity: 0;
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-left {
+      transform: translateX(-60px);
+    }
+
+    .animate-right {
+      transform: translateX(60px);
+    }
+
+    .animate-left.visible,
+    .animate-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Fullscreen video view */
     .video-fullscreen {
       position: fixed;
       top: 0;
@@ -426,7 +1422,6 @@
       width: 80%;
       height: auto;
       max-height: 90%;
-      border-radius: 0;
     }
 
     .video-fullscreen button {
@@ -442,15 +1437,46 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0 }
-      to { opacity: 1 }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
+    /* 📱 Mobile optimization */
     @media (max-width: 768px) {
+      #testimonial-section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+      }
+
       .main-wrapper {
         flex-direction: column;
-        align-items: flex-start;
-        padding: 2rem 1rem;
+        align-items: center;
+        padding: 1rem 0.5rem;
+        gap: 2rem;
+      }
+
+      #testimonial-section p {
+        font-size: 1rem;
+        line-height: 1.8;
+        text-align: justify;
+        color: #4b5563;
+      }
+
+      #testimonial-section h1 {
+        text-align: center;
+        font-size: 2rem;
+        line-height: 1.3;
+      }
+
+      #testimonial-section .button2 {
+        display: block;
+        margin: 1.5rem auto 0 auto;
+        font-size: 0.95rem;
+        padding: 0.6rem 1.2rem;
       }
 
       .swiper-slide {
@@ -462,80 +1488,114 @@
         padding: 0 !important;
         margin: 0 auto;
       }
+
+      #vcard-label {
+        margin-top: 1rem;
+        font-size: 1.25rem;
+      }
     }
   </style>
 
+  <!-- ✅ Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    const vcardLabels = ['vcard1', 'vcard2', 'vcard3'];
-    const vcardLabelElement = document.getElementById('vcard-label');
+    const vcardLabels = ["vcard1", "vcard2", "vcard3"];
+    const vcardLabelElement = document.getElementById("vcard-label");
 
-    const TrendingSlider = new Swiper('.trending-slider', {
-      effect: 'coverflow',
+    const TrendingSlider = new Swiper(".trending-slider", {
+      effect: "coverflow",
       grabCursor: true,
       centeredSlides: true,
       loop: false,
       slidesPerView: 3,
-      spaceBetween: 0,
       autoplay: { delay: 2000, disableOnInteraction: false },
       speed: 1000,
-      coverflowEffect: { rotate: 0, stretch: 0, depth: 120, modifier: 2, slideShadows: false },
-      pagination: { el: '.swiper-pagination', clickable: true },
-      breakpoints: { 0: { slidesPerView: 3 }, 768: { slidesPerView: 3 } },
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 120,
+        modifier: 2,
+        slideShadows: false,
+      },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      breakpoints: {
+        0: { slidesPerView: 3 },
+        768: { slidesPerView: 3 },
+      },
       on: {
         slideChange: function () {
           const index = this.realIndex;
-          if (vcardLabelElement && vcardLabels[index]) vcardLabelElement.textContent = vcardLabels[index];
+          if (vcardLabelElement && vcardLabels[index])
+            vcardLabelElement.textContent = vcardLabels[index];
         },
       },
     });
 
-    // Video click to fullscreen
-    document.querySelectorAll('.swiper-slide video').forEach(video => {
-      video.addEventListener('click', function () {
-        if (!video.hasAttribute('data-fullscreen')) {
+    // 🎞️ Video fullscreen overlay
+    document.querySelectorAll(".swiper-slide video").forEach((video) => {
+      video.addEventListener("click", function () {
+        if (!video.hasAttribute("data-fullscreen")) {
           TrendingSlider.autoplay.stop();
 
-          const overlay = document.createElement('div');
-          overlay.classList.add('video-fullscreen');
+          const overlay = document.createElement("div");
+          overlay.classList.add("video-fullscreen");
 
           const cloneVideo = video.cloneNode(true);
-          cloneVideo.setAttribute('controls', 'true');
+          cloneVideo.setAttribute("controls", "true");
           cloneVideo.autoplay = true;
           cloneVideo.muted = false;
           cloneVideo.play();
 
-          const closeBtn = document.createElement('button');
-          closeBtn.innerHTML = '&times;';
+          const closeBtn = document.createElement("button");
+          closeBtn.innerHTML = "&times;";
 
           overlay.appendChild(cloneVideo);
           overlay.appendChild(closeBtn);
           document.body.appendChild(overlay);
 
-          video.setAttribute('data-fullscreen', 'true');
+          video.setAttribute("data-fullscreen", "true");
 
-          closeBtn.addEventListener('click', () => {
+          closeBtn.addEventListener("click", () => {
             cloneVideo.pause();
             overlay.remove();
-            video.removeAttribute('data-fullscreen');
+            video.removeAttribute("data-fullscreen");
             TrendingSlider.autoplay.start();
           });
         }
       });
     });
-  </script>
 
+    // 🌀 Scroll reveal animation
+    const revealVideoTestimonial = () => {
+      const triggerBottom = window.innerHeight * 0.8;
+      const animatedItems = document.querySelectorAll(
+        "#testimonial-section .animate-left, #testimonial-section .animate-right"
+      );
+
+      animatedItems.forEach((item) => {
+        const itemTop = item.getBoundingClientRect().top;
+        if (itemTop < triggerBottom) {
+          item.classList.add("visible");
+        } else {
+          item.classList.remove("visible");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", revealVideoTestimonial);
+    window.addEventListener("load", revealVideoTestimonial);
+  </script>
 </section>
 
 
 
 
-<!-- 🌟 Our Services Section -->
-  <section id="our-services" class="   bg-gradient-to-tr from-white via-sky-100 to-sky-200 antialiased">
-  <!-- Top bar -->
+
+
+<!-- Our service -->
+<section id="our-services" class="bg-gradient-to-tr from-white via-sky-100 to-sky-200 animate-gradientBlur">
   <div class="mx-auto max-w-9xl px-5 pt-6">
     <div class="flex items-center gap-3">
-      <!-- cube icon -->
       <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-slate-700 shadow-md ring-1 ring-black/5">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M12 3l8 4v10l-8 4-8-4V7l8-4Z" />
@@ -544,21 +1604,16 @@
         </svg>
       </div>
 
-      <!-- heading -->
       <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-slate-900">
         Our Services
       </h1>
     </div>
   </div>
 
-  <!-- Cards -->
   <section class="mx-auto max-w-7xl px-5 pb-12 pt-8">
-    <!-- Mobile: 2 columns, Desktop: 4 columns with max-width -->
     <div class="grid grid-cols-2 gap-4 md:gap-6 md:grid-cols-4 md:max-w-6xl">
-      
-      <!-- Card 1: Web Development -->
-      <article class="overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col">
-        <!-- top preview -->
+
+      <article class="card overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col transition-all duration-300">
         <div class="h-[240px] md:h-[320px] bg-gradient-to-br from-indigo-50 to-blue-100 relative">
           <div class="absolute inset-0 p-3 md:p-5 flex items-center justify-center">
             <div class="text-center">
@@ -574,7 +1629,6 @@
           </div>
         </div>
 
-        <!-- body -->
         <div class="p-4 md:p-5 flex-1 flex flex-col">
           <div class="flex items-center gap-2">
             <span class="inline-flex h-5 md:h-6 w-5 md:w-6 items-center justify-center rounded-full bg-indigo-100">
@@ -596,9 +1650,7 @@
         </div>
       </article>
 
-      <!-- Card 2: WhatsApp Marketing -->
-      <article class="overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col">
-        <!-- top preview -->
+      <article class="card overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col transition-all duration-300">
         <div class="h-[240px] md:h-[320px] bg-gradient-to-br from-green-50 to-emerald-100 relative">
           <div class="absolute inset-0 p-3 md:p-5 flex items-center justify-center">
             <div class="text-center">
@@ -614,7 +1666,6 @@
           </div>
         </div>
 
-        <!-- body -->
         <div class="p-4 md:p-5 flex-1 flex flex-col">
           <div class="flex items-center gap-2">
             <span class="inline-flex h-5 md:h-6 w-5 md:w-6 items-center justify-center rounded-full bg-green-100">
@@ -636,9 +1687,7 @@
         </div>
       </article>
 
-      <!-- Card 3: Graphics Design -->
-      <article class="overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col">
-        <!-- top preview -->
+      <article class="card overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col transition-all duration-300">
         <div class="h-[240px] md:h-[320px] bg-gradient-to-br from-purple-50 to-pink-100 relative">
           <div class="absolute inset-0 p-3 md:p-5 flex items-center justify-center">
             <div class="text-center">
@@ -654,7 +1703,6 @@
           </div>
         </div>
 
-        <!-- body -->
         <div class="p-4 md:p-5 flex-1 flex flex-col">
           <div class="flex items-center gap-2">
             <span class="inline-flex h-5 md:h-6 w-5 md:w-6 items-center justify-center rounded-full bg-purple-100">
@@ -676,9 +1724,7 @@
         </div>
       </article>
 
-      <!-- Card 4: Business Automation -->
-      <article class="overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col">
-        <!-- top preview -->
+      <article class="card overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-black/5 min-h-[420px] md:min-h-[520px] flex flex-col transition-all duration-300">
         <div class="h-[240px] md:h-[320px] bg-gradient-to-br from-orange-50 to-red-100 relative">
           <div class="absolute inset-0 p-3 md:p-5 flex items-center justify-center">
             <div class="text-center">
@@ -693,7 +1739,6 @@
           </div>
         </div>
 
-        <!-- body -->
         <div class="p-4 md:p-5 flex-1 flex flex-col">
           <div class="flex items-center gap-2">
             <span class="inline-flex h-5 md:h-6 w-5 md:w-6 items-center justify-center rounded-full bg-orange-100">
@@ -717,97 +1762,126 @@
     </div>
   </section>
 
-
-
-
-
-
-
-
-  <!-- Value Added Services Button (Mobile Only - Bottom) -->
-  <div class="mx-auto max-w-7xl px-5 pb-4 md:hidden">
-    <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 hover:shadow-xl transition-shadow">
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
-          <span class="text-lg font-bold text-blue-600">12+</span>
-        </div>
-        <span class="text-base font-medium text-slate-700">Value added services</span>
+<div class="mx-auto max-w-7xl px-5 pb-4 md:hidden">
+  <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
+        <span class="text-lg font-bold text-blue-600">12+</span>
       </div>
-      <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
-        <span>Know more</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      <span class="text-base font-medium text-slate-700">Value added services</span>
+    </div>
+    <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
+      <span>Know more</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </a>
+</div>
+
+<div class="mx-auto max-w-7xl px-5 pb-4 md:hidden">
+  <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-orange-400 to-amber-400 rounded-2xl">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
         </svg>
       </div>
-    </a>
-  </div>
+      <span class="text-base font-medium text-slate-700">Domestic shipping rates</span>
+    </div>
+    <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
+      <span>Calculate Now</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </a>
+</div>
 
-  <!-- Domestic Shipping Rates Button (Mobile Only - Bottom) -->
-  <div class="mx-auto max-w-7xl px-5 pb-4 md:hidden">
-    <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 hover:shadow-xl transition-shadow">
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-orange-400 to-amber-400 rounded-2xl">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-          </svg>
-        </div>
-        <span class="text-base font-medium text-slate-700">Domestic shipping rates</span>
+<div class="mx-auto max-w-7xl px-5 pb-4 md:hidden">
+  <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
+        <span class="text-lg font-bold text-blue-600">12+</span>
       </div>
-      <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
-        <span>Calculate Now</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      <span class="text-base font-medium text-slate-700">Value added services</span>
+    </div>
+    <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
+      <span>Know more</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </a>
+</div>
+
+<div class="mx-auto max-w-7xl px-5 pb-8 md:hidden">
+  <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-orange-400 to-amber-400 rounded-2xl">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
         </svg>
       </div>
-    </a>
-  </div>
-
-  
-  <!-- Value Added Services Button (Mobile Only - Bottom) -->
-  <div class="mx-auto max-w-7xl px-5 pb-4 md:hidden">
-    <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 hover:shadow-xl transition-shadow">
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
-          <span class="text-lg font-bold text-blue-600">12+</span>
-        </div>
-        <span class="text-base font-medium text-slate-700">Value added services</span>
-      </div>
-      <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
-        <span>Know more</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </div>
-    </a>
-  </div>
-
-  <!-- Domestic Shipping Rates Button (Mobile Only - Bottom) -->
-  <div class="mx-auto max-w-7xl px-5 pb-8 md:hidden">
-    <a href="#" class="flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg ring-1 ring-black/5 hover:shadow-xl transition-shadow">
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center h-12 w-12 bg-gradient-to-br from-orange-400 to-amber-400 rounded-2xl">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-          </svg>
-        </div>
-        <span class="text-base font-medium text-slate-700">Domestic shipping rates</span>
-      </div>
-      <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
-        <span>Calculate Now</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </div>
-    </a>
-  </div>
+      <span class="text-base font-medium text-slate-700">Domestic shipping rates</span>
+    </div>
+    <div class="flex items-center gap-1 text-violet-600 font-medium text-sm">
+      <span>Calculate Now</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </a>
+</div>
 </section>
 
+<script>
+  // Scroll reveal for cards
+  const serviceCards = document.querySelectorAll('.card');
+  const revealServiceCards = () => {
+    // Triggers when the top of the card is 85% up from the bottom of the viewport
+    const triggerBottom = window.innerHeight * 0.85; 
+    
+    serviceCards.forEach(card => {
+      const boxTop = card.getBoundingClientRect().top;
+      if (boxTop < triggerBottom) {
+        card.classList.add('visible');
+      } else {
+        // You can uncomment this if you want the cards to disappear when scrolling back up
+        // card.classList.remove('visible'); 
+      }
+    });
+  };
+  // Attach listeners for scrolling and initial page load
+  window.addEventListener('scroll', revealServiceCards);
+  window.addEventListener('load', revealServiceCards);
+</script>
+
+<style>
+  /* * CSS for the Scroll-Reveal (Fade-In-Up) Animation 
+  * This is based on the 'card' style you provided.
+  */
+  .card {
+    /* Base invisible state */
+    opacity: 0;
+    transform: translateY(20px);
+    
+    /* Smooth transition for the animation */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  
+  .card.visible {
+    /* Final visible state */
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 
 
 
-
+<!-- Why choose us -->
 <section id="why-choose-us" class="bg-white">
-  <div class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
+  <div class="max-w-7xl mx-auto px-6 py-6 sm:py-10 md:py-22  grid lg:grid-cols-2 gap-12 items-center">
     <div>
       <p class="text-purple-600 font-semibold mb-3 text-2xl">Why You Choose Our Template</p>
       <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
@@ -824,9 +1898,18 @@
         <li>💯 Your trusted digital growth partner</li>
       </ul>
 
-      <button class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-purple-700 transition-all">
+      <!-- <button class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-purple-700 transition-all">
         Get Started Now
-      </button>
+      </button> -->
+              <div>
+           <button
+    type="button"
+    class="button2"
+    onclick="alert('View More clicked!')"
+  >
+    Get Started Now
+  </button>
+        </div>
     </div>
 
     <div class="grid sm:grid-cols-2 gap-6">
@@ -887,6 +1970,10 @@
   </script>
 
   <style>
+
+
+
+
     .card {
       /* Added a small negative margin to account for the border-bottom expansion on hover,
          which prevents the card grid from slightly shifting upwards. */
@@ -911,39 +1998,122 @@
 
 
 
+<style>
+        /* --- 1. NAVBAR STYLES --- */
+        .mega-menu { display: none; }
+        .show-menu { display: block; }
 
-<!-- Client testimonial -->
+        /* 🌟 FINAL SCROLL CLASS: Instant Change, Rounded, & Waterglassy Effect 🌟 */
+        .nav-scroll {
+            /* Positioning and Layout: Rounded & Side Spacing */
+            /* UPDATED: Added margin-top: 10px and kept auto margin for centering */
+            border-radius: 50px !important; 
+            margin: 10px auto !important;  
+            width: 95% !important;        
+            
+            /* Waterglassy Effect (Frosted Glass) - This already contains the transparent/glassy effect */
+            /* background-color: rgba(255, 255, 255, 0.9) !important; 
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;  */
+            
+            /* Shadow and INSTANT Change */
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15) !important; 
+            transition: none !important; 
 
-<section id="testimonial-section" class="w-full py-20 bg-purple-100">
+             
+            top: 0 !important; 
+        }
 
-  <!-- ✅ Responsive Wrapper -->
-  <div class="main-wrapper flex flex-col md:flex-row items-center justify-between px-6 md:px-20">
+        /* Initial state adjustments: Remove smooth transition from the start */
+        #mainNav {
+            /* This ensures a quick change without visual delay */
+            transition: none !important; 
+        }
 
-    <!-- ✅ Left Text -->
-    <div class="md:w-1/2 md:ml-12 text-left flex flex-col  ">
-      <h1 class="text-3xl md:text-6xl font-bold text-gray-800 leading-tight">
-        What Our Client Say
-      </h1>
+        /* --- 2. SLIDER STYLES --- */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradientBlur { background-size: 200% 200%; animation: gradientMove 10s ease infinite; }
 
-      <p class="text-gray-600 text-lg max-w-md mt-10 leading-loose">
-        It is a long established fact that a reader will be choose <br> by the readable content of a page when looking at.
-      </p>
+        .hero-line { position: relative; overflow: hidden; background-color: rgb(216 180 254); border-radius: 2px; }
+        .hero-line::after {
+            content: "";
+            position: absolute; top: 0; left: 0; 
+            height: 100%; width: 0%;
+            background-color: rgb(59 130 246);
+            transition: width 0s linear;
+        }
+        .hero-line.active::after {
+            width: 100%;
+            transition: width 4000ms linear;
+        }
+        /* 📱 Always Rounded Navbar on Small Screens */
+@media (max-width: 768px) {
+  #mainNav {
+    border-radius: 40px;
+    margin: 8px auto;
+    width: 94%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+    </style>
 
-      <button
-        class="mt-10 bg-[#2563eb] text-white text-2xl px-8 py-4 rounded-md font-semibold hover:bg-[#1e4fd1] transition-all duration-300 w-max">
-        More Templates
-      </button>
-    </div>
 
-    <!-- ✅ Right Slider -->
-    <div class="md:w-1/2 mt-10 md:mt-0 md:mr-8">
-      <div class="swiper trending-slider relative pb-8">
+
+<!-- Link Testimonial -->
+
+<section
+  id="testimonial-section-2"
+  class="relative z-10 w-full py-6 sm:py-10 md:py-20 bg-gradient-to-br from-purple-400 via-white to-purple-400 animate-gradientBlur"
+>
+
+  <div
+    class="main-wrapper-2 flex flex-col md:flex-row items-center justify-between px-6 md:px-20"
+  >
+<div class="md:w-1/2 md:ml-12 text-left flex flex-col animate-left">
+  <h1 class="text-3xl md:text-6xl font-bold text-gray-800 leading-tight">
+    What Our Client Say
+  </h1>
+
+  <p class="text-gray-600 text-lg max-w-md mt-4 md:mt-10 leading-relaxed">
+    It is a long established fact that a reader will be choose by the
+    readable content of a page when looking at.
+  </p>
+
+  <div class="mt-4 md:mt-8">
+    <button
+      type="button"
+      class="button2"
+      onclick="alert('View More clicked!')"
+    >
+      More Templates
+    </button>
+  </div>
+</div>
+
+
+    <div class="md:w-1/2 mt-10 md:mt-0 md:mr-8 animate-right">
+      <div class="swiper trending-slider-2 relative">
         <div class="swiper-wrapper">
-
-          <!-- ✅ Slide 1 -->
-          <div class="swiper-slide group relative rounded-2xl overflow-hidden w-[16rem] h-[24rem] md:w-[20rem] md:h-[25rem]">
-            <img src="tesla.jpg" alt="Tesla" class="w-full h-full object-cover rounded-2xl">
-            <div class="absolute inset-0 z-10 bg-black/30 flex flex-col justify-between p-4 pointer-events-none">
+          <!-- Tesla -->
+          <div
+            class="swiper-slide group relative rounded-2xl overflow-hidden w-[11rem] h-[18rem] md:w-[20rem] md:h-[25rem]"
+          >
+            <img
+              src="tesla.jpg"
+              alt="Tesla"
+              class="w-full h-full object-cover rounded-2xl"
+            />
+            <div
+              class="absolute inset-0 z-10 bg-black/30 flex flex-col justify-between p-4 pointer-events-none"
+            >
               <h1 class="text-white text-lg font-bold self-end">$20</h1>
               <div>
                 <h2 class="text-white text-xl font-semibold">Tesla Car</h2>
@@ -959,19 +2129,32 @@
                 </div>
               </div>
             </div>
-            <a href="https://www.tesla.com/" target="_blank"
-              class="absolute inset-0 z-20 flex items-center justify-center text-white text-4xl">
+            <a
+              href="https://www.tesla.com/"
+              target="_blank"
+              class="absolute inset-0 z-20 flex items-center justify-center text-white text-4xl"
+            >
               <ion-icon name="link"></ion-icon>
             </a>
           </div>
 
-          <!-- ✅ Slide 2 -->
-          <div class="swiper-slide group relative rounded-2xl overflow-hidden w-[16rem] h-[24rem] md:w-[20rem] md:h-[25rem]">
-            <img src="spotify.jpg" alt="Spotify" class="w-full h-full object-cover rounded-2xl">
-            <div class="absolute inset-0 z-10 bg-black/30 flex flex-col justify-between p-4 pointer-events-none">
+          <!-- Spotify -->
+          <div
+            class="swiper-slide group relative rounded-2xl overflow-hidden w-[11rem] h-[18rem] md:w-[20rem] md:h-[25rem]"
+          >
+            <img
+              src="spotify.jpg"
+              alt="Spotify"
+              class="w-full h-full object-cover rounded-2xl"
+            />
+            <div
+              class="absolute inset-0 z-10 bg-black/30 flex flex-col justify-between p-4 pointer-events-none"
+            >
               <h1 class="text-white text-lg font-bold self-end">$25</h1>
               <div>
-                <h2 class="text-white text-xl font-semibold">Spotify Premium</h2>
+                <h2 class="text-white text-xl font-semibold">
+                  Spotify Premium
+                </h2>
                 <div class="flex items-center gap-2 mt-1 text-white">
                   <span>4.8</span>
                   <div class="flex text-yellow-400">
@@ -984,16 +2167,27 @@
                 </div>
               </div>
             </div>
-            <a href="https://open.spotify.com/" target="_blank"
-              class="absolute inset-0 z-20 flex items-center justify-center text-white text-4xl">
+            <a
+              href="https://open.spotify.com/"
+              target="_blank"
+              class="absolute inset-0 z-20 flex items-center justify-center text-white text-4xl"
+            >
               <ion-icon name="link"></ion-icon>
             </a>
           </div>
 
-          <!-- ✅ Slide 3 -->
-          <div class="swiper-slide group relative rounded-2xl overflow-hidden w-[16rem] h-[24rem] md:w-[20rem] md:h-[25rem]">
-            <img src="nike.jpg" alt="Nike" class="w-full h-full object-cover rounded-2xl">
-            <div class="absolute inset-0 z-10 bg-black/30 flex flex-col justify-between p-4 pointer-events-none">
+          <!-- Nike -->
+          <div
+            class="swiper-slide group relative rounded-2xl overflow-hidden w-[11rem] h-[18rem] md:w-[20rem] md:h-[25rem]"
+          >
+            <img
+              src="nike.jpg"
+              alt="Nike"
+              class="w-full h-full object-cover rounded-2xl"
+            />
+            <div
+              class="absolute inset-0 z-10 bg-black/30 flex flex-col justify-between p-4 pointer-events-none"
+            >
               <h1 class="text-white text-lg font-bold self-end">$30</h1>
               <div>
                 <h2 class="text-white text-xl font-semibold">Nike Shoes</h2>
@@ -1009,86 +2203,215 @@
                 </div>
               </div>
             </div>
-            <a href="https://www.nike.com/in/" target="_blank"
-              class="absolute inset-0 z-20 flex items-center justify-center text-white text-4xl">
+            <a
+              href="https://www.nike.com/in/"
+              target="_blank"
+              class="absolute inset-0 z-20 flex items-center justify-center text-white text-4xl"
+            >
               <ion-icon name="link"></ion-icon>
             </a>
           </div>
-
         </div>
+        <div class="swiper-pagination-2 swiper-pagination-aligned"></div>
+      </div>
 
-        <!-- ✅ VCard Label -->
-        <div id="vcard-label" class="text-center text-2xl font-bold text-gray-800 mt-4 mb-2">vcard1</div>
-
-        <!-- ✅ Pagination -->
-        <div class="flex items-center justify-center">
-          <div class="swiper-pagination !w-[15rem] relative bottom-0"></div>
-        </div>
+      <div
+        id="vcard-label-2"
+        class="text-center text-2xl font-bold text-gray-800 mt-6 mb-2"
+      >
+        vcard1
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ✅ Scripts -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- ✅ CSS, JS, and External Links must go outside the <section> -->
+<style>
+  #testimonial-section-2 {
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .swiper-pagination-2 .swiper-pagination-bullet {
+    background-color: #ccc;
+    opacity: 1;
+  }
+
+  .swiper-pagination-2 .swiper-pagination-bullet-active {
+    background-color: #2563eb !important;
+  }
+
+  .swiper-pagination-aligned {
+    position: relative !important;
+    margin-top: 1.5rem !important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .animate-left,
+  .animate-right {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .animate-left {
+    transform: translateX(-60px);
+  }
+
+  .animate-right {
+    transform: translateX(60px);
+  }
+
+  .animate-left.visible,
+  .animate-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 768px) {
+    #testimonial-section-2 {
+      padding-top: 3rem !important;
+      padding-bottom: 3rem !important;
+    }
+
+    .animate-left,
+    .animate-right {
+      transform: translateY(40px);
+    }
+
+    .animate-left.visible,
+    .animate-right.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .main-wrapper-2 {
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 0.5rem;
+      gap: 2rem;
+    }
+
+    #testimonial-section-2 p {
+      font-size: 1rem !important;
+      line-height: 1.8 !important;
+      text-align: justify !important;
+      color: #4b5563 !important;
+      margin-top: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    #testimonial-section-2 h1 {
+      text-align: center !important;
+      font-size: 2rem !important;
+      line-height: 1.3;
+    }
+
+    #testimonial-section-2 .button2 {
+      display: block;
+      margin: 1.5rem auto 0 auto;
+      font-size: 0.95rem;
+      padding: 0.6rem 1.2rem;
+    }
+
+    .trending-slider-2 .swiper-slide {
+      width: 10rem !important;
+      height: 16rem !important;
+    }
+
+    .trending-slider-2 {
+      padding: 0 !important;
+      margin: 0 auto;
+    }
+
+    #vcard-label-2 {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<!-- ✅ Scripts at the bottom -->
+<script
+  type="module"
+  src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+  nomodule
+  src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-(() => {
-  // Use 'let' to allow re-declaration safely if script runs again
-  const vcardLabels = ['vcard1', 'vcard2', 'vcard3'];
-  const vcardLabelElement = document.getElementById('vcard-label');
+  (() => {
+    const vcardLabels2 = ["vcard1", "vcard2", "vcard3"];
+    const vcardLabelElement2 = document.getElementById("vcard-label-2");
+    const paginationElement2 = document.querySelector(".swiper-pagination-2");
 
-  // Check if Swiper is available
-  if (typeof Swiper !== "undefined") {
-    const trendingSlider = new Swiper('.trending-slider', {
-      effect: 'coverflow',
-      grabCursor: true,
-      centeredSlides: true,
-      loop: false,
-      slidesPerView: 3,
-      spaceBetween: 0,
-      autoplay: {
-        delay: 2000,
-        disableOnInteraction: false,
-      },
-      speed: 1000,
-      coverflowEffect: {
-        rotate: 0,
-        stretch: 0,
-        depth: 120,
-        modifier: 2,
-        slideShadows: false,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      breakpoints: {
-        0: { slidesPerView: 3, spaceBetween: 0 },
-        768: { slidesPerView: 3, spaceBetween: 0 },
-      },
-      on: {
-        slideChange: function () {
-          const index = this.realIndex;
-          if (vcardLabelElement && vcardLabels[index]) {
-            vcardLabelElement.textContent = vcardLabels[index];
-          }
+    if (typeof Swiper !== "undefined") {
+      const trendingSlider2 = new Swiper(".trending-slider-2", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        loop: false,
+        slidesPerView: 3,
+        autoplay: { delay: 2500, disableOnInteraction: false },
+        speed: 1000,
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 0,
+          depth: 120,
+          modifier: 2,
+          slideShadows: false,
         },
-      },
+        pagination: { el: paginationElement2, clickable: true },
+        breakpoints: {
+          0: { slidesPerView: 3, spaceBetween: 0 },
+          768: { slidesPerView: 3, spaceBetween: 0 },
+        },
+        on: {
+          slideChange: function () {
+            const index = this.realIndex;
+            if (vcardLabelElement2 && vcardLabels2[index]) {
+              vcardLabelElement2.textContent = vcardLabels2[index];
+            }
+          },
+        },
+      });
+    } else {
+      console.error("Swiper not loaded.");
+    }
+  })();
+
+  const revealTestimonialElements = () => {
+    const triggerBottom = window.innerHeight * 0.8;
+    const animatedItems = document.querySelectorAll(
+      ".animate-left, .animate-right"
+    );
+
+    animatedItems.forEach((item) => {
+      const itemTop = item.getBoundingClientRect().top;
+      if (itemTop < triggerBottom) {
+        item.classList.add("visible");
+      } else {
+        item.classList.remove("visible");
+      }
     });
-  } else {
-    console.error("Swiper is not loaded on this page.");
-  }
-})();
+  };
+
+  window.addEventListener("scroll", revealTestimonialElements);
+  window.addEventListener("load", revealTestimonialElements);
 </script>
 
 
-</section>
 
 
 
+  
 
+
+
+<!-- Seamless intigration. -->
 <section id="integration-section"
   class="py-16 bg-white overflow-hidden relative"
   style="background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png'); background-size: contain; background-repeat: repeat; background-position: center;">
@@ -1103,12 +2426,10 @@
       </h2>
     </div>
 
-    <!-- 🔹 Row 1 -->
-    <div class="overflow-hidden mb-6 w-screen relative left-1/2 -translate-x-1/2">
+    <div class="overflow-hidden mb-3 md:mb-6 w-screen relative left-1/2 -translate-x-1/2">
       <div id="logo-track-1" class="flex animate-scroll-left will-change-transform"></div>
     </div>
 
-    <!-- 🔹 Row 2 -->
     <div class="overflow-hidden w-screen relative left-1/2 -translate-x-1/2">
       <div id="logo-track-2" class="flex animate-scroll-right will-change-transform"></div>
     </div>
@@ -1148,6 +2469,7 @@
       to { transform: translateX(0); }
     }
 
+    /* 💻 Default (Desktop) Speed: 30s */
     .animate-scroll-left {
       animation: scroll-left 30s linear infinite;
     }
@@ -1156,12 +2478,21 @@
       animation: scroll-right 30s linear infinite;
     }
 
-    /* ✅ Responsive scaling */
+    /* ✅ Responsive scaling and Gap Adjustment */
     @media (max-width: 640px) {
       .logo-item {
         width: 110px;
         height: 70px;
-        margin-right: 16px;
+        margin-right: 8px; /* Horizontal Gap Reduced */
+      }
+
+      /* 📱 Mobile Speed: 7s (Much Faster) */
+      .animate-scroll-left {
+        animation: scroll-left 7s linear infinite; /* CHANGED: 10s to 7s */
+      }
+
+      .animate-scroll-right {
+        animation: scroll-right 7s linear infinite; /* CHANGED: 10s to 7s */
       }
     }
   </style>
@@ -1208,17 +2539,17 @@
 
 
 
-
-<section class="max-w-7xl mx-auto px-6 py-20  text-gray-900 font-sans">
+<!-- Our service solution portfolio -->
+<section class="max-w-8xl mx-auto px-12 py-20 bg-gray-50 text-gray-900 font-sans">
     
     <div class="mb-4 text-start">
-        <h2 class="text-5xl font-semibold leading-tight text-[#141413]">
+        <h2 class="text-5xl font-bold leading-tight text-[#141413]">
             Our Services<br />& Solutions Portfolio
         </h2>
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center py-8">
-        <div class="order-2 md:order-1">
+        <div class="order-2 md:order-1 animate-left">
             <h3 class="text-3xl font-semibold text-gray-900 mb-4">
                 Domestic Shipping
             </h3>
@@ -1231,7 +2562,7 @@
                 smart NDR redressal, branded tracking page, and inventory control.
             </p>
         </div>
-        <div class="flex justify-center md:justify-end order-1 md:order-2">
+        <div class="flex justify-center md:justify-end order-1 md:order-2 animate-right">
             <img
                 src="https://sr-website.shiprocket.in/wp-content/uploads/2024/11/1-4.webp"
                 alt="Domestic Shipping"
@@ -1241,14 +2572,14 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center py-12 ">
-        <div class="flex justify-center md:justify-start">
+        <div class="flex justify-center md:justify-start animate-left">
             <img
                 src="https://sr-website.shiprocket.in/wp-content/uploads/2024/11/s2.webp"
                 alt="Fulfillment"
                 class="max-w-full w-[550px] rounded-xl shadow-lg"
             />
         </div>
-        <div>
+        <div class="animate-right">
             <h3 class="text-3xl font-semibold text-gray-900 mb-4">Fulfillment</h3>
             <p class="text-gray-600 text-lg leading-relaxed">
                 Tired of delivery delays and expensive warehousing across cities?
@@ -1263,7 +2594,7 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center py-12 ">
-        <div class="order-2 md:order-1">
+        <div class="order-2 md:order-1 animate-left">
             <h3 class="text-3xl font-semibold text-gray-900 mb-4">Quick</h3>
             <p class="text-gray-600 text-lg leading-relaxed">
                 <span class="font-semibold">Quick delivers locally faster than you can imagine</span>, starting at ₹10/km and 0 demand surge fee. It’s a cost-effective and reliable means for businesses and individuals to send parcels locally to single or multiple destinations.
@@ -1271,7 +2602,7 @@
                 smart NDR redressal, branded tracking page, and inventory control.
             </p>
         </div>
-        <div class="flex justify-center md:justify-end order-1 md:order-2">
+        <div class="flex justify-center md:justify-end order-1 md:order-2 animate-right">
             <img
                 src="https://sr-website.shiprocket.in/wp-content/uploads/2024/12/graphici.webp"
                 alt="Quick Local Delivery"
@@ -1281,14 +2612,14 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center py-12 ">
-        <div class="flex justify-center md:justify-start">
+        <div class="flex justify-center md:justify-start animate-left">
             <img
                 src="https://sr-website.shiprocket.in/wp-content/uploads/2024/11/6-3.webp"
                 alt="Cross Border Trade"
                 class="max-w-full w-[550px] rounded-xl shadow-lg"
             />
         </div>
-        <div>
+        <div class="animate-right">
             <h3 class="text-3xl font-semibold text-gray-900 mb-4">Cross Border Trade</h3>
             <p class="text-gray-600 text-lg leading-relaxed">
                 Shiprocket Fulfillment offers a one-stack solution with its
@@ -1302,7 +2633,7 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center py-12 ">
-        <div class="order-2 md:order-1">
+        <div class="order-2 md:order-1 animate-left">
             <h3 class="text-3xl font-semibold text-gray-900 mb-4">Check Out</h3>
             <p class="text-gray-600 text-lg leading-relaxed">
                 Serving <span class="font-semibold">19,000+ unique pin codes</span> nationwide,
@@ -1313,7 +2644,7 @@
                 smart NDR redressal, branded tracking page, and inventory control.
             </p>
         </div>
-        <div class="flex justify-center md:justify-end order-1 md:order-2">
+        <div class="flex justify-center md:justify-end order-1 md:order-2 animate-right">
             <img
                 src="https://sr-website.shiprocket.in/wp-content/uploads/2024/11/4.webp"
                 alt="Check Out"
@@ -1323,14 +2654,14 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center py-12 ">
-        <div class="flex justify-center md:justify-start">
+        <div class="flex justify-center md:justify-start animate-left">
             <img
                 src="https://sr-website.shiprocket.in/wp-content/uploads/2024/11/360-1.webp"
                 alt="Engage 360"
                 class="max-w-full w-[550px] rounded-xl shadow-lg"
             />
         </div>
-        <div>
+        <div class="animate-right">
             <h3 class="text-3xl font-semibold text-gray-900 mb-4">Engage 360</h3>
             <p class="text-gray-600 text-lg leading-relaxed">
                 Shiprocket Fulfillment offers a one-stack solution with its
@@ -1344,104 +2675,179 @@
     </div>
 </section>
 
+<script>
+    // Scroll reveal function
+    const revealElements = () => {
+        // Triggers when the top of the element is 80% up from the bottom of the viewport
+        const triggerBottom = window.innerHeight * 0.80; 
+        
+        // Target all elements with the animation classes
+        const animatedItems = document.querySelectorAll('.animate-left, .animate-right');
+
+        animatedItems.forEach(item => {
+            const itemTop = item.getBoundingClientRect().top;
+            if (itemTop < triggerBottom) {
+                item.classList.add('visible');
+            } else {
+                // Optional: remove the 'visible' class if you want the animation to reset 
+                // when scrolling back up.
+                // item.classList.remove('visible');
+            }
+        });
+    };
+
+    // Attach listeners for scrolling and initial page load
+    window.addEventListener('scroll', revealElements);
+    window.addEventListener('load', revealElements);
+</script>
+
+<style>
+    /* * CSS for the Scroll-Reveal (Fade-In-Left/Right) Animation 
+    * Ensure this CSS is included on your page (e.g., in a <style> tag or CSS file).
+    */
+    .animate-left, .animate-right {
+        /* Base invisible state */
+        opacity: 0;
+        
+        /* Smooth transition for the animation */
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    /* Animation for text blocks (Fade in from left) */
+    .animate-left {
+        transform: translateX(-50px);
+    }
+    
+    .animate-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Animation for image blocks (Fade in from right) */
+    .animate-right {
+        transform: translateX(50px);
+    }
+    
+    .animate-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    /* 🌐 Default animations (for desktop/tablet) remain same */
+
+@media (max-width: 768px) {
+    .animate-left.visible,
+    .animate-right.visible {
+        transition-delay: 0.1s;
+    }
+
+    .animate-right.visible:nth-of-type(2n) {
+        transition-delay: 0.2s;
+    }
+}
+
+
+</style>
 
 
 
 
 
-<!-- BLOg -->
-<section class="relative w-full bg-gradient-to-br from-purple-50 to-white py-12 sm:py-14 md:py-20 text-gray-900 overflow-hidden">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
 
-    <!-- 🔹 Header -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 sm:mb-10 space-y-4 md:space-y-0 text-center md:text-left">
-      <h2 class="text-2xl sm:text-4xl md:text-5xl font-extrabold">
-        Our Latest <span class="text-purple-600">Blog</span>
-      </h2>
-      <!-- 🔸 Button (Desktop Only) -->
-      <a href="#"
-         class="hidden md:inline-block bg-purple-600 text-white px-6 py-2 rounded-xl font-semibold shadow-md hover:bg-purple-700 transition">
+<!-- BLOG -->
+<section class="relative w-full bg-gradient-to-br from-purple-50 to-white text-gray-900 overflow-hidden ">
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 mt-10">
+
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 sm:mb-10 space-y-4 md:space-y-0 text-center md:text-left">
+    <h2 class="text-2xl sm:text-4xl md:text-5xl font-extrabold">
+      Our Latest <span class="text-purple-600">Blog</span>
+    </h2>
+
+    <div class="hidden md:flex justify-center mt-10">
+      <button
+        type="button"
+        class="button2"
+        onclick="alert('View More clicked!')"
+      >
         View More
-      </a>
+      </button>
     </div>
-
-    <!-- 🔸 Blog Cards -->
-    <div class="flex flex-wrap justify-center md:justify-start gap-5 sm:gap-8">
-
-      <!-- 🧩 Blog Card 1 -->
-      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-visible w-full xs:w-[320px] sm:w-[340px] md:w-[360px]">
-        <div class="relative">
-          <img src="https://linksiy.com/assets/front/img/blogs/1751466325.png"
-               alt="Blog 1"
-               class="w-full h-44 sm:h-48 object-cover rounded-t-2xl">
-
-          <!-- 🟣 Date + Author (Joined with Image) -->
-          <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white text-purple-700 text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-full shadow-lg flex items-center justify-center gap-2 w-fit z-10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10m-9 4h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-            <span>July 2, 2025 • Aajly</span>
-          </div>
-        </div>
-
-        <div class="p-5 pt-9 sm:p-6 sm:pt-8">
-          <h3 class="text-base sm:text-lg font-bold mb-2 leading-snug">Aajly — Empowering Small Businesses to Go Digital, Simply</h3>
-          <p class="text-gray-600 text-sm mb-3">
-            🌐 Aajly helps local businesses go digital with easy, affordable solutions...
-          </p>
-          <a href="#" class="text-purple-600 font-semibold hover:underline text-sm">Read More</a>
-        </div>
-      </div>
-
-      <!-- 🧩 Blog Card 2 -->
-      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-visible w-full xs:w-[320px] sm:w-[340px] md:w-[360px]">
-        <div class="relative">
-          <img src="https://linksiy.com/assets/front/img/blogs/1751466757.png"
-               alt="Blog 2"
-               class="w-full h-44 sm:h-48 object-cover rounded-t-2xl">
-
-          <!-- 🟣 Date + Author (Joined with Image) -->
-          <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white text-purple-700 text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-full shadow-lg flex items-center justify-center gap-2 w-fit z-10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10m-9 4h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-            <span>July 2, 2025 • Business</span>
-          </div>
-        </div>
-
-        <div class="p-5 pt-9 sm:p-6 sm:pt-8">
-          <h3 class="text-base sm:text-lg font-bold mb-2 leading-snug">Why Every Business Needs a Website in 2025</h3>
-          <p class="text-gray-600 text-sm mb-3">
-            ✅ Your digital presence builds trust before people even visit your shop...
-          </p>
-          <a href="#" class="text-purple-600 font-semibold hover:underline text-sm">Read More</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 🔹 Button (Mobile Only) -->
-    <div class="flex justify-center mt-10 md:hidden">
-      <a href="#"
-         class="bg-purple-600 text-white px-8 py-2 rounded-xl font-semibold shadow-md hover:bg-purple-700 transition">
-        View More
-      </a>
-    </div>
-
   </div>
-</section>
+
+  <div class="flex flex-wrap justify-center md:justify-start gap-5 sm:gap-8">
+
+    <div class="card bg-white rounded-2xl shadow-md transition overflow-visible w-full xs:w-[320px] sm:w-[340px] md:w-[360px]">
+      <div class="relative">
+        <img src="https://linksiy.com/assets/front/img/blogs/1751466325.png"
+              alt="Blog 1"
+              class="w-full h-44 sm:h-48 object-cover rounded-t-2xl">
+
+        <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white text-purple-700 text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-full shadow-lg flex items-center justify-center gap-2 w-fit z-10">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10m-9 4h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>July 2, 2025 • Aajly</span>
+        </div>
+      </div>
+
+      <div class="p-5 pt-9 sm:p-6 sm:pt-8">
+        <h3 class="text-base sm:text-lg font-bold mb-2 leading-snug">Aajly — Empowering Small Businesses to Go Digital, Simply</h3>
+        <p class="text-gray-600 text-sm mb-3">
+          🌐 Aajly helps local businesses go digital with easy, affordable solutions...
+        </p>
+        <a href="#" class="text-purple-600 font-semibold hover:underline text-sm">Read More</a>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl shadow-md transition overflow-visible w-full xs:w-[320px] sm:w-[340px] md:w-[360px]">
+      <div class="relative">
+        <img src="https://linksiy.com/assets/front/img/blogs/1751466757.png"
+              alt="Blog 2"
+              class="w-full h-44 sm:h-48 object-cover rounded-t-2xl">
+
+        <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white text-purple-700 text-xs sm:text-sm font-medium px-10 sm:px-4 py-2 rounded-full shadow-lg flex items-center justify-center gap-2 w-fit z-10">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10m-9 4h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span class="whitespace-nowrap">July 2, 2025 • Business</span>
+        </div>
+      </div>
+
+      <div class="p-5 pt-9 sm:p-6 sm:pt-8">
+        <h3 class="text-base sm:text-lg font-bold mb-2 leading-snug">Why Every Business Needs a Website in 2025</h3>
+        <p class="text-gray-600 text-sm mb-3">
+          ✅ Your digital presence builds trust before people even visit your shop...
+        </p>
+        <a href="#" class="text-purple-600 font-semibold hover:underline text-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-10 md:hidden">
+    <button
+      type="button"
+      class="button2"
+      onclick="alert('View More clicked!')"
+    >
+      View More
+    </button>
+  </div>
+
+</div>
 
 
-<section id="footer-section" class="relative bg-[#f8f5ff] pt-16 pb-8 border-t border-purple-100">
 
-  <div class="max-w-7xl mx-auto px-6 md:px-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+<!-- FOOTER -->
+<section id="footer-section" class="relative bg-purple-100 pt-10 mt-0 border-t border-purple-100 rounded-t-3xl mt-20 ">
 
-      <!-- 🔹 Company Info -->
+  <div class="max-w-7xl mx-auto px-6 md:px-8 ">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 ">
+
       <div>
-        <div class="flex items-center space-x-2 mb-4">
+        <div class="flex items-center space-x-2 ">
           <div class="flex items-center justify-center bg-gradient-to-tr from-purple-500 to-purple-700 text-white w-10 h-10 rounded-xl font-bold text-lg">A</div>
           <h2 class="text-2xl font-extrabold text-purple-700">Aajly<span class="text-purple-400">✨</span></h2>
         </div>
@@ -1451,7 +2857,6 @@
         </p>
       </div>
 
-      <!-- 🔹 Useful Links -->
       <div>
         <h3 class="text-lg font-semibold mb-4">Useful Links</h3>
         <ul class="space-y-2 text-sm text-gray-700">
@@ -1464,7 +2869,6 @@
         </ul>
       </div>
 
-      <!-- 🔹 Contact Info -->
       <div>
         <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
         <ul class="space-y-3 text-sm text-gray-700">
@@ -1495,7 +2899,6 @@
         </ul>
       </div>
 
-      <!-- 🔹 Newsletter -->
       <div>
         <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
         <p class="text-sm text-gray-600 mb-4">Get latest updates first</p>
@@ -1511,40 +2914,35 @@
 
     </div>
 
-    <!-- 🔸 Divider -->
     <div class="border-t border-dashed border-gray-300 mt-10 mb-6"></div>
 
-    <!-- 🔹 Bottom Bar -->
     <div class="flex flex-col items-center justify-center text-center text-sm text-gray-600 space-y-4">
       <div class="flex items-center justify-center space-x-4">
 
-        <!-- ✅ Facebook Icon -->
         <a href="#" class="bg-purple-100 text-purple-600 p-3 rounded-full hover:bg-purple-200 transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M22 12a10 10 0 10-11 9.95v-7.05h-2v-2.9h2v-2.2c0-2 1.2-3.1 3-3.1.9 0 1.8.1 2.1.1v2.4h-1.2c-1.2 0-1.5.7-1.5 1.4v1.9h2.7l-.4 2.9h-2.3V22A10 10 0 0022 12z" />
           </svg>
         </a>
 
-        <!-- ✅ Instagram Icon -->
         <a href="https://www.instagram.com/yourusername" target="_blank"
-           class="bg-pink-100 text-pink-600 p-3 rounded-full hover:bg-pink-200 transition">
+          class="bg-pink-100 text-pink-600 p-3 rounded-full hover:bg-pink-200 transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm4.75-.88a.88.88 0 110 1.75.88.88 0 010-1.75z"/>
           </svg>
         </a>
       </div>
-      <p>Copyright © 2025. All rights reserved by <span class="font-semibold text-purple-600">Aajly</span>.</p>
+      <div class="pb-4"><p>Copyright © 2025. All rights reserved by <span class="font-semibold text-purple-600">Aajly</span>.</p></div>
     </div>
   </div>
 
-  <!-- 🟣 Back to Top -->
   <button id="backToTop" 
-          class="fixed  ml-6 bottom-6 items-start bg-purple-600 text-white p-3 rounded-full shadow-lg 
-                 hover:bg-purple-700 transition-all duration-300 hidden z-50">
+          class="fixed ml-6 bottom-6 items-start bg-purple-600 text-white p-3 rounded-full shadow-lg 
+                hover:bg-purple-700 transition-all duration-300 hidden z-50">
     ↑
   </button>
 
-  <!-- ✅ Authentic WhatsApp Floating Button -->
+<!-- ✅ Authentic WhatsApp Floating Button -->
     <a href="https://wa.me/919116418648?text=Hi%20Aajly%2C%20I%20want%20to%20know%20more%20about%20your%20services!" 
      target="_blank"
      class="fixed bottom-6  right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 z-50">
@@ -1571,10 +2969,52 @@
     });
   </script>
 </section>
+</section>
+
+<script>
+  // Scroll reveal for cards
+  const blogCards = document.querySelectorAll('.card');
+  const revealBlogCards = () => {
+    // Triggers when the top of the card is 85% up from the bottom of the viewport
+    const triggerBottom = window.innerHeight * 0.85; 
+    
+    blogCards.forEach(card => {
+      const boxTop = card.getBoundingClientRect().top;
+      if (boxTop < triggerBottom) {
+        card.classList.add('visible');
+      } else {
+        // Optional: comment this out if you don't want the cards to disappear when scrolling back up
+        // card.classList.remove('visible'); 
+      }
+    });
+  };
+  // Attach listeners for scrolling and initial page load
+  window.addEventListener('scroll', revealBlogCards);
+  window.addEventListener('load', revealBlogCards);
+</script>
+
+<style>
+  /* * CSS for the Scroll-Reveal (Fade-In-Up) Animation 
+  * Ensure this CSS is included on your page (e.g., in a <style> tag or CSS file).
+  */
+  .card {
+    /* Base invisible state */
+    opacity: 0;
+    transform: translateY(20px);
+    
+    /* Smooth transition for the animation */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  
+  .card.visible {
+    /* Final visible state */
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 
 
-
-    <script>
+    <!-- <script>
         /* ------------------------------------------------ */
         /* 1. NAVBAR SCROLL LOGIC & MEGA MENU */
         /* ------------------------------------------------ */
@@ -1606,13 +3046,33 @@
             });
         });
 
-        // Mobile Menu Toggle
-        const btn = document.getElementById("menu-btn");
-        const mobileMenu = document.getElementById("mobile-menu");
-        btn.addEventListener("click", () => {
-            mobileMenu.classList.toggle("hidden");
-        });
+        // // Mobile Menu Toggle
+        // const btn = document.getElementById("menu-btn");
+        // const mobileMenu = document.getElementById("mobile-menu");
+        // btn.addEventListener("click", () => {
+        //     mobileMenu.classList.toggle("hidden");
+        // });
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
 
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  // Mobile dropdowns
+  const mobileItems = document.querySelectorAll(".mobile-menu-item");
+
+  mobileItems.forEach(item => {
+    item.addEventListener("click", () => {
+      const menuId = item.getAttribute("data-menu");
+      const menu = document.getElementById(menuId);
+      menu.classList.toggle("show-menu");
+
+      // Rotate arrow icon (optional)
+      const arrow = item.querySelector("span.text-sm");
+      if (arrow) arrow.classList.toggle("rotate-180");
+    });
+  });
         // SCROLL LOGIC
         const nav = document.getElementById("mainNav");
         window.addEventListener("scroll", () => {
@@ -1657,19 +3117,35 @@
             slides.forEach(slide=>{
                 const div = document.createElement("div");
                 // *UPDATED:* Changed pb-16 to pb-6 for better vertical spacing on mobile
-                div.className = "hero-slide min-w-full flex flex-col md:flex-row items-start md:items-center justify-between h-full pt-10 pb-6 px-4 md:px-20 lg:px-24";
+       div.className = "hero-slide min-w-full flex flex-col md:flex-row items-start md:items-center justify-between h-full pt-10 pb-16  px-4 md:px-20 lg:px-24";
+
                 
                 div.innerHTML = `
                     <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center mt-8 md:mt-0">
                         <h1 class="text-3xl md:text-4xl lg:text-6xl font-medium leading-relaxed lg:leading-[1.2] tracking-tight">${slide.title}</h1>
                         <p class="text-lg text-gray-600 mt-4">${slide.desc}</p>
-                        <button class="mt-6 md:mt-8 bg-purple-600 hover:bg-purple-700 text-white font-medium text-lg px-8 py-3 rounded-md shadow-md transition-all duration-300 w-fit min-w-[180px]">Sign Up For Free</button>
+                              
+                        <div class="mt-10">
+           <button
+    type="button"
+    class="button2"
+    onclick="alert('View More clicked!')"
+  >
+    Get Started Now
+  </button>
+        </div>
+
                     </div>
                     <div class="w-full md:w-1/2 flex justify-center items-end mt-0">
-                        <img src="${slide.img}" class="w-[90%] max-h-[600px] object-contain" />
+                        <img src="${slide.img}" class="w-[95%] max-h-[650px] object-cover md:object-bottom lg:object-bottom" />
+
                     </div>
-                `;
+                  
+                `; 
+                  //  <button class="mt-6 md:mt-8 bg-purple-600 hover:bg-purple-700 text-white font-medium text-lg px-8 py-3 rounded-md shadow-md transition-all duration-300 w-fit min-w-[180px]">Sign Up For Free</button>
+                  
                 slidesContainer.appendChild(div);
+                
             });
 
             const lines = [];
@@ -1733,7 +3209,39 @@
             restartAutoSlide();
 
         })();
-    </script>
+    </script> -->
+
+
+
+<script>
+  /* ------------------------------------------------ */
+      /* 2. CUSTOM CURSOR LOGIC (New Addition) */
+      /* ------------------------------------------------ */
+
+      var cursor = document.querySelector(".cursor");
+      var cursor2 = document.querySelector(".cursor2");
+
+  
+      const cursorHoverables = document.querySelectorAll('a, button, [role="button"], .cursor-pointer');
+
+    
+      document.addEventListener("mousemove", function(e) {
+        cursor.style.cssText = cursor2.style.cssText = "left: " + e.clientX + "px; top: " + e.clientY + "px;";
+      });
+
+      cursorHoverables.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+          cursor.classList.add('hover-active');
+          cursor2.classList.add('hover-active');
+        });
+        element.addEventListener('mouseleave', () => {
+          cursor.classList.remove('hover-active');
+          cursor2.classList.remove('hover-active');
+        });
+      });  
+</script>
+
+
 
   </body>
 </html>
