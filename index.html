@@ -56,6 +56,18 @@
       .cursor2.hover-active {
         opacity: 0; 
       }  
+      /* ---  Hide Custom Cursor on Small Screens  --- */
+@media (max-width: 768px) {
+  body {
+    cursor: auto !important; /* show default system cursor */
+  }
+
+  .cursor,
+  .cursor2 {
+    display: none !important; /* completely hide both circles */
+  }
+}
+
 
 
        /* From Uiverse.io by shah1345 */ 
@@ -216,7 +228,7 @@
 <!-- Navbar -->
 <div class="bg-gradient-to-r from-blue-100 via-pink-100 to-yellow-100 animate-gradientBlur -mt-3">
 <nav id="mainNav"
-  class="sticky top-0 z-50
+  class="sticky top-2 z-50
          bg-white/30 backdrop-blur-2xl border-b border-white/20
          transition-all duration-300">
 
@@ -398,8 +410,9 @@
                 </button>
             </div>
             </div>
+<div id="mobile-menu" class="hidden transform scale-y-0 opacity-0 transition-all duration-300 origin-top md:hidden bg-white shadow-lg rounded-2xl mx-4 mt-2 mb-4 p-4">
 
-            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-2xl mx-4 mt-2 mb-4 p-4">
+            <!-- <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-2xl mx-4 mt-2 mb-4 p-4"> -->
             <ul class="flex flex-col space-y-2 text-gray-800 font-medium">
                                 
                 <li class="mobile-menu-item" data-menu="home-menu-mobile">
@@ -433,7 +446,7 @@
                 </li>
 
                 <li class="mobile-menu-item" data-menu="listings-menu-mobile">
-                  <a href="" 
+                  <a 
    class="flex items-center justify-between cursor-pointer py-1 hover:text-purple-600">
     
     <span>Listings 📦</span>
@@ -831,6 +844,7 @@
             margin-right: 0.75rem;
             color: #7c3aed; /* purple-600 */
         }
+
         
         /* 📱 MOBILE NAVBAR STYLES (Improved) */
         @media (max-width: 768px) {
@@ -845,20 +859,19 @@
                 -webkit-backdrop-filter: blur(10px);
             }
             /* Mobile Mega Menu Styles - IMPROVED */
-            .mobile-mega-menu {
-                background-color: rgba(243, 244, 246, 0.8); /* bg-gray-100/80 */
-                padding: 10px 15px;
-                margin-top: 5px;
-                border-radius: 8px;
-                font-size: 1rem;
-                display: none;
-                backdrop-filter: blur(5px);
-                -webkit-backdrop-filter: blur(5px);
-                border: 1px solid rgba(229, 231, 235, 0.5); /* border-gray-200/50 */
-            }
-            .mobile-mega-menu.show-menu {
-                display: block;
-            }
+/* Smooth dropdown animation for mobile mega menu */
+.mobile-mega-menu {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-mega-menu.show-menu {
+  max-height: 500px; /* enough to fit your content */
+  opacity: 1;
+}
+
             .mobile-mega-menu h3 {
                 font-size: 0.75rem; 
                 margin-bottom: 0.5rem;
@@ -866,6 +879,8 @@
                 font-weight: 600; 
                 text-transform: uppercase;
             }
+
+
             .mobile-menu-item-link {
                 display: flex;
                 align-items: center;
@@ -894,8 +909,12 @@
                 margin-top: 10px;
                 border-top: 1px solid rgb(229 231 235);
             }
+            /* Smooth dropdown animation for mobile menu */
+
         }
     </style>
+
+    
 
 
 
@@ -906,7 +925,7 @@
 
 <section
   id="home"
-  class="relative overflow-hidden w-full h-[90vh] md:h-[86vh] flex items-center justify-center text-gray-900"
+  class="relative overflow-hidden w-full h-[88vh] md:h-[86vh] flex items-center justify-center text-gray-900"
 >
   <!-- Gradient Background -->
   <div
@@ -1030,49 +1049,53 @@
             });
         });
 
-        // // Mobile Menu Toggle
-        // const btn = document.getElementById("menu-btn");
-        // const mobileMenu = document.getElementById("mobile-menu");
-        // btn.addEventListener("click", () => {
-        //     mobileMenu.classList.toggle("hidden");
-        // });
-  const menuBtn = document.getElementById("menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
+/* ------------------------------
+   MOBILE NAVBAR TOGGLE & DROPDOWNS
+------------------------------- */
 
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
+const menuBtn = document.getElementById("menu-btn"); // hamburger button
+const mobileMenu = document.getElementById("mobile-menu"); // mobile menu container
+const bars = menuBtn.querySelectorAll("span"); // 3 spans of hamburger
+
+// Hamburger animation + menu toggle
+menuBtn.addEventListener("click", () => {
+  const isOpen = mobileMenu.classList.contains("scale-y-100");
+
+  if (isOpen) {
+    mobileMenu.classList.remove("scale-y-100", "opacity-100");
+    mobileMenu.classList.add("scale-y-0", "opacity-0");
+    setTimeout(() => mobileMenu.classList.add("hidden"), 300);
+
+    bars[0].classList.remove("rotate-45", "translate-y-2");
+    bars[1].classList.remove("opacity-0");
+    bars[2].classList.remove("-rotate-45", "-translate-y-2");
+  } else {
+    mobileMenu.classList.remove("hidden");
+    setTimeout(() => {
+      mobileMenu.classList.remove("scale-y-0", "opacity-0");
+      mobileMenu.classList.add("scale-y-100", "opacity-100");
+    }, 10);
+
+    bars[0].classList.add("rotate-45", "translate-y-2");
+    bars[1].classList.add("opacity-0");
+    bars[2].classList.add("-rotate-45", "-translate-y-2");
+  }
+});
+
+// Mobile dropdowns
+const mobileItems = document.querySelectorAll(".mobile-menu-item");
+
+mobileItems.forEach(item => {
+  item.addEventListener("click", () => {
+    const menuId = item.getAttribute("data-menu");
+    const menu = document.getElementById(menuId);
+    menu.classList.toggle("show-menu");
+
+    // Rotate arrow icon
+    const arrow = item.querySelector("span.text-sm");
+    if (arrow) arrow.classList.toggle("rotate-180");
   });
-
-  // Mobile dropdowns
-  const mobileItems = document.querySelectorAll(".mobile-menu-item");
-
-  mobileItems.forEach(item => {
-    item.addEventListener("click", () => {
-      const menuId = item.getAttribute("data-menu");
-      const menu = document.getElementById(menuId);
-      menu.classList.toggle("show-menu");
-
-      // Rotate arrow icon (optional)
-      const arrow = item.querySelector("span.text-sm");
-      if (arrow) arrow.classList.toggle("rotate-180");
-    });
-  });
-        // SCROLL LOGIC
-        const nav = document.getElementById("mainNav");
-        window.addEventListener("scroll", () => {
-            if (window.innerWidth >= 768) {  
-                // When scrolling is detected, the nav-scroll class is added, which applies margin and the glassy effect.
-                nav.classList.toggle("nav-scroll", window.scrollY > 30);
-            } else {
-                nav.classList.remove("nav-scroll");
-            }
-        });
-
-        window.addEventListener("resize", () => {
-            if (window.innerWidth < 768) {
-                nav.classList.remove("nav-scroll");
-            }
-        });
+});
 
         /* ------------------------------------------------ */
         /* 2. SLIDER LOGIC */
@@ -1098,39 +1121,35 @@
             slides.push(slideData[0]);
 
             // Dynamically create slide HTML elements
-            slides.forEach(slide=>{
-                const div = document.createElement("div");
-                // *UPDATED:* Changed pb-16 to pb-6 for better vertical spacing on mobile
-       div.className = "hero-slide min-w-full flex flex-col md:flex-row items-start md:items-center justify-between h-full  px-4 md:px-20 lg:px-24";
+slides.forEach(slide => {
+  const div = document.createElement("div");
 
-                
-                div.innerHTML = `
-                    <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center mt-2 md:mt-0">
-                        <h1 class="text-3xl md:text-4xl lg:text-6xl font-medium leading-relaxed lg:leading-[1.2] tracking-tight">${slide.title}</h1>
-                        <p class="text-lg text-gray-600 mt-4">${slide.desc}</p>
-                              
-                        <div class="mt-10">
-           <button
-    type="button"
-    class="button2"
-    onclick="alert('View More clicked!')"
-  >
-    Get Started Now
-  </button>
-        </div>
+  div.className = "hero-slide min-w-full flex flex-col md:flex-row items-start md:items-center justify-between h-full px-4 md:px-20 lg:px-24";
 
-                    </div>
-                    <div class="w-full md:w-1/2 flex justify-center  items-end mt-12  ">
-                        <img src="${slide.img}" class="w-[95%] max-h-[650px] object-cover md:object-bottom lg:object-bottom pb-16 " />
+  div.innerHTML = `
+    <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center pt-8 md:pt-0"> <!-- Adjust pt for mobile -->
+      <h1 class="text-3xl md:text-4xl lg:text-6xl font-medium leading-relaxed lg:leading-[1.2] tracking-tight">${slide.title}</h1>
+      <p class="text-lg text-gray-600 mt-4">${slide.desc}</p>
 
-                    </div>
-                  
-                `; 
-                  //  <button class="mt-6 md:mt-8 bg-purple-600 hover:bg-purple-700 text-white font-medium text-lg px-8 py-3 rounded-md shadow-md transition-all duration-300 w-fit min-w-[180px]">Sign Up For Free</button>
-                  
-                slidesContainer.appendChild(div);
-                
-            });
+      <div class="mt-6"> <!-- Slightly reduced mt -->
+        <button
+          type="button"
+          class="button2"
+          onclick="alert('View More clicked!')"
+        >
+          Get Started Now
+        </button>
+      </div>
+    </div>
+
+    <div class="w-full md:w-1/2 flex justify-center items-start md:items-end md:mt-0 mb-20"> <!-- Fix image position -->
+      <img src="${slide.img}" class="w-[95%] max-h-[400px] md:max-h-[650px] object-cover md:object-bottom lg:object-bottom" />
+    </div>
+  `;
+
+  slidesContainer.appendChild(div);
+});
+
 
             const lines = [];
             slideData.forEach(()=> {
@@ -3240,6 +3259,68 @@
         });
       });  
 </script>
+
+ <script>
+    (() => {
+      const mainNav = document.getElementById("mainNav");
+      const sidebar = document.getElementById("sidebar");
+      const menuBtn = document.getElementById("menuBtn");
+      const closeBtn = document.getElementById("closeBtn");
+
+      // Scroll effect on navbar
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          mainNav.classList.add("shadow-lg", "bg-white/70");
+        } else {
+          mainNav.classList.remove("shadow-lg", "bg-white/70");
+        }
+      });
+
+      // Open sidebar
+      menuBtn.addEventListener("click", () => {
+        sidebar.classList.remove("translate-x-full");
+        sidebar.classList.add("translate-x-0");
+      });
+
+      // Close sidebar
+      closeBtn.addEventListener("click", () => {
+        sidebar.classList.add("translate-x-full");
+        sidebar.classList.remove("translate-x-0");
+      });
+    })();
+  </script>
+
+
+
+<!-- <script>
+const menuBtn = document.getElementById("menu-btn");
+const mobileMenu = document.getElementById("mobile-menu");
+const bars = menuBtn.querySelectorAll("span"); // 3 spans of hamburger
+
+menuBtn.addEventListener("click", () => {
+  const isOpen = mobileMenu.classList.contains("scale-y-100");
+
+  if (isOpen) {
+    mobileMenu.classList.remove("scale-y-100", "opacity-100");
+    mobileMenu.classList.add("scale-y-0", "opacity-0");
+    setTimeout(() => mobileMenu.classList.add("hidden"), 300);
+
+    bars[0].classList.remove("rotate-45", "translate-y-2");
+    bars[1].classList.remove("opacity-0");
+    bars[2].classList.remove("-rotate-45", "-translate-y-2");
+  } else {
+    mobileMenu.classList.remove("hidden");
+    setTimeout(() => {
+      mobileMenu.classList.remove("scale-y-0", "opacity-0");
+      mobileMenu.classList.add("scale-y-100", "opacity-100");
+    }, 10);
+
+    bars[0].classList.add("rotate-45", "translate-y-2");
+    bars[1].classList.add("opacity-0");
+    bars[2].classList.add("-rotate-45", "-translate-y-2");
+  }
+});
+</script> -->
 
 
 
